@@ -13,6 +13,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="GControl">
+      <UniqueIdentifier>{2fe633ce-799a-4e03-bdbe-2a3d33b83999}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GControl.h">
@@ -30,6 +33,15 @@
     <ClInclude Include="Resource.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="GControl\gcombobox.h">
+      <Filter>GControl</Filter>
+    </ClInclude>
+    <ClInclude Include="GControl\basic.h">
+      <Filter>GControl</Filter>
+    </ClInclude>
+    <ClInclude Include="GControl\gedit.h">
+      <Filter>GControl</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GControl.cpp">
@@ -40,6 +52,15 @@
     </ClCompile>
     <ClCompile Include="stdafx.cpp">
       <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="GControl\gcombobox.cpp">
+      <Filter>GControl</Filter>
+    </ClCompile>
+    <ClCompile Include="GControl\basic.cpp">
+      <Filter>GControl</Filter>
+    </ClCompile>
+    <ClCompile Include="GControl\gedit.cpp">
+      <Filter>GControl</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -54,6 +75,9 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\GControl.ico">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="GControl\image\combobox.bmp">
       <Filter>资源文件</Filter>
     </Image>
   </ItemGroup>

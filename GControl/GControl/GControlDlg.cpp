@@ -6,6 +6,7 @@
 #include "GControl.h"
 #include "GControlDlg.h"
 #include "afxdialogex.h"
+#include "resource.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -24,7 +25,9 @@ CGControlDlg::CGControlDlg(CWnd* pParent /*=nullptr*/)
 
 void CGControlDlg::DoDataExchange(CDataExchange* pDX)
 {
-	CDialogEx::DoDataExchange(pDX);
+    CDialogEx::DoDataExchange(pDX);
+    DDX_Control(pDX, IDC_COMBO_A, aCobo_);
+    DDX_Control(pDX, IDC_EDIT_A, aEdit_);
 }
 
 BEGIN_MESSAGE_MAP(CGControlDlg, CDialogEx)
@@ -39,19 +42,54 @@ BOOL CGControlDlg::OnInitDialog()
 {
 	CDialogEx::OnInitDialog();
 
-	// 设置此对话框的图标。  当应用程序主窗口不是对话框时，框架将自动
-	//  执行此操作
 	SetIcon(m_hIcon, TRUE);			// 设置大图标
 	SetIcon(m_hIcon, FALSE);		// 设置小图标
 
-	// TODO: 在此添加额外的初始化代码
+    initComboBox();
+    initEdit();
 
-	return TRUE;  // 除非将焦点设置到控件，否则返回 TRUE
+	return TRUE;  
 }
 
-// 如果向对话框添加最小化按钮，则需要下面的代码
-//  来绘制该图标。  对于使用文档/视图模型的 MFC 应用程序，
-//  这将由框架自动完成。
+void CGControlDlg::initComboBox()
+{
+    auto n = RGB(255,255,255);
+    aCobo_.InsertString(0, "桔子");
+    aCobo_.InsertString(1, "苹果");
+    aCobo_.InsertString(2, "梨");
+    aCobo_.InsertString(3, "梨");
+    aCobo_.InsertString(4, "梨");
+    aCobo_.InsertString(5, "梨");
+    aCobo_.InsertString(6, "梨");
+    aCobo_.InsertString(7, "梨");
+    aCobo_.InsertString(8, "梨");
+    aCobo_.setItemSelectedColor(RGB(255,0,0));
+    CFont f;
+    LOGFONT lf = { 0 };
+    lf.lfHeight = 25;
+    strcpy_s(lf.lfFaceName, "微软雅黑");
+    f.CreateFontIndirectA(&lf);
+    aCobo_.setFont(f);
+    aCobo_.setItemHeight(30);
+    aCobo_.setHeight(30);
+    aCobo_.SetCurSel(0);
+    //aCobo_.setItemColor(RGB(255,0,0));
+}
+
+void CGControlDlg::initEdit()
+{
+    aEdit_.SetWindowText("123456789");
+    aEdit_.setBorderColor(RGB(255,0,0));
+    aEdit_.setRoundPoint({ 10,10 });
+    
+    LOGFONT lf = { 0 };
+    lf.lfHeight = 25;
+    strcpy_s(lf.lfFaceName, "微软雅黑");
+    f.CreateFontIndirectA(&lf);
+    aEdit_.SetFont(&f);
+    //aEdit_.SetReadOnly();
+}
+
 
 void CGControlDlg::OnPaint()
 {

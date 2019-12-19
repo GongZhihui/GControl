@@ -30,3 +30,7 @@
 *.exe
 *.out
 *.app
+/GControl/.vs/GControl/v15
+/GControl/debug
+/GControl/release
+/GControl/build

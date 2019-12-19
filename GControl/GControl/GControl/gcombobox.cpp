@@ -20,8 +20,6 @@ CoboListBox::~CoboListBox()
 void CoboListBox::PreSubclassWindow()
 {
     CListBox::PreSubclassWindow();
-    
-    ModifyStyle(0, LBS_OWNERDRAWFIXED);
 }
 
 void CoboListBox::DrawItem(LPDRAWITEMSTRUCT lps)
@@ -87,11 +85,13 @@ ComboBox::~ComboBox()
 void ComboBox::loadDownPic(int bmpID)
 {
     downBmp_.LoadBitmap(bmpID);
+    defaultBmp_ = false;
 }
 
 void ComboBox::loadDownPic(const CString & bmpPath)
 {
-    downBmp_.LoadBitmapA(bmpPath);
+    downBmp_.LoadBitmap(bmpPath);
+    defaultBmp_ = false;
 }
 
 void ComboBox::setItemColor(COLORREF bkColor, COLORREF textColor)
@@ -161,31 +161,6 @@ void ComboBox::OnPaint()
 
 void ComboBox::DrawItem(LPDRAWITEMSTRUCT lps)
 {
-    return;
-    CRect rectCombo;
-    COMBOBOXINFO comboInfo;
-    comboInfo.cbSize = sizeof(COMBOBOXINFO);
-    GetComboBoxInfo(&comboInfo);
-    GetClientRect(rectCombo);
-
-    CDC *dc = CDC::FromHandle(lps->hDC);
-    int item = lps->itemID;
-    CRect rcItem = lps->rcItem;
-    HICON hIcon = (HICON)lps->itemData;
-
-    if (item != CB_ERR)
-    {
-        COLORREF clrBackground;
-        COLORREF clrText;
-        CRect rcText = rcItem;
-        
-        
-        CString text;
-        GetLBText(item, text);
-        //rcText.left += 3;
-        dc->DrawText(text, text.GetLength(), rcText, DT_LEFT | DT_VCENTER | DT_SINGLELINE | DT_WORD_ELLIPSIS);
-        //dc->SelectObject(oldFont);
-    }
 }
 
 void ComboBox::MeasureItem(LPMEASUREITEMSTRUCT lps)
@@ -220,16 +195,36 @@ void ComboBox::DrawPicture(CDC* pDC, CRect rect)
 {
     if (defaultBmp_)
     {
-        
+        int centerx = rect.left + rect.Width() / 2;
+        int centery = rect.top + rect.Height() / 2;
+        int leftx = centerx - 5;
+        int lefty = centery - 2;
+        int rightx = centerx + 5;
+        int righty = centery - 2;
+        int bottomx = centerx;
+        int bottomy = centery + 3;
+
+        CPen pen, *oldPen;
+        pen.CreatePen(PS_SOLID, 2, btnClr_);
+        oldPen = pDC->SelectObject(&pen);
+        pDC->MoveTo(leftx, lefty);
+        pDC->LineTo(bottomx, bottomy);
+        pDC->MoveTo(bottomx, bottomy);
+        pDC->LineTo(rightx, righty);
+        pDC->SelectObject(oldPen);
     }
     else
     {
+        rect.left = rect.right - rect.Height();
         CBitmap* oldBmp;
         CDC* memDc = new CDC;
 
         memDc->CreateCompatibleDC(pDC);
         oldBmp = memDc->SelectObject(&downBmp_);
-        pDC->BitBlt(rect.left, rect.top, rect.Width(), rect.Height(), memDc, 0, 0, SRCCOPY);
+        BITMAP bmp = { 0 };
+        downBmp_.GetObject(sizeof(bmp), &bmp);
+        pDC->StretchBlt(rect.left, rect.top, rect.Width(), rect.Height(), memDc, 0, 0, bmp.bmWidth, bmp.bmHeight, SRCCOPY);
+        //pDC->BitBlt(rect.left, rect.top, rect.Width(), rect.Height(), memDc, 0, 0, SRCCOPY);
         memDc->SelectObject(oldBmp);
 
         ReleaseDC(memDc);
@@ -298,7 +293,6 @@ void ComboBox::OnCbnSelchange()
 
 void ComboBox::PreSubclassWindow()
 {
-    edit_.setBorderColor(outerClr_);
     CComboBox::PreSubclassWindow();
 }
 

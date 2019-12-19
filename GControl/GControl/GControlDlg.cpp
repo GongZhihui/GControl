@@ -54,6 +54,7 @@ BOOL CGControlDlg::OnInitDialog()
 void CGControlDlg::initComboBox()
 {
     auto n = RGB(255,255,255);
+    aCobo_.loadDownPic(IDB_BITMAP1);
     aCobo_.InsertString(0, "桔子");
     aCobo_.InsertString(1, "苹果");
     aCobo_.InsertString(2, "梨");

@@ -69,10 +69,11 @@ private:
 
 private:
     CBitmap downBmp_;
-    bool defaultBmp_{ false };
+    bool defaultBmp_{ true };
     COLORREF interClr_{ RGB(240, 250, 255) };
     COLORREF outerClr_{ RGB(195, 215, 220) };
-    
+    COLORREF btnClr_{ RGB(127,127,127) };
+
     COLORREF itemBkClr_{ BadColor };
     COLORREF itemTextClr_{ BadColor };
     COLORREF itemSelectedBkClr_{ BadColor };

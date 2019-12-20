@@ -5,6 +5,7 @@
 #pragma once
 #include "GControl/gcombobox.h"
 #include "GControl/gedit.h"
+#include "GControl/glistbox.h"
 
 // CGControlDlg 对话框
 class CGControlDlg : public CDialogEx
@@ -31,13 +32,14 @@ protected:
 
     void initComboBox();
     void initEdit();
+    void initListBox();
 
 	afx_msg void OnPaint();
 	afx_msg HCURSOR OnQueryDragIcon();
 	DECLARE_MESSAGE_MAP()
 private:
     GCtrl::ComboBox aCobo_;
-public:
-    GCtrl::GEdit aEdit_;
+    GCtrl::Edit aEdit_;
     CFont f;
+    GCtrl::ListBox aListbox_;
 };

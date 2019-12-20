@@ -28,6 +28,7 @@ void CGControlDlg::DoDataExchange(CDataExchange* pDX)
     CDialogEx::DoDataExchange(pDX);
     DDX_Control(pDX, IDC_COMBO_A, aCobo_);
     DDX_Control(pDX, IDC_EDIT_A, aEdit_);
+    DDX_Control(pDX, IDC_LISTBOX_A, aListbox_);
 }
 
 BEGIN_MESSAGE_MAP(CGControlDlg, CDialogEx)
@@ -47,14 +48,14 @@ BOOL CGControlDlg::OnInitDialog()
 
     initComboBox();
     initEdit();
-
+    initListBox();
 	return TRUE;  
 }
 
 void CGControlDlg::initComboBox()
 {
     auto n = RGB(255,255,255);
-    aCobo_.loadDownPic(IDB_BITMAP1);
+    //aCobo_.loadDownPic(IDB_BITMAP1);
     aCobo_.InsertString(0, "桔子");
     aCobo_.InsertString(1, "苹果");
     aCobo_.InsertString(2, "梨");
@@ -67,13 +68,14 @@ void CGControlDlg::initComboBox()
     aCobo_.setItemSelectedColor(RGB(255,0,0));
     CFont f;
     LOGFONT lf = { 0 };
-    lf.lfHeight = 25;
+    lf.lfHeight = 24;
     strcpy_s(lf.lfFaceName, "微软雅黑");
     f.CreateFontIndirectA(&lf);
     aCobo_.setFont(f);
-    aCobo_.setItemHeight(30);
-    aCobo_.setHeight(30);
+    aCobo_.setItemHeight(20);
+    aCobo_.setHeight(25);
     aCobo_.SetCurSel(0);
+    aCobo_.setTextColor(RGB(255, 0, 0));
     //aCobo_.setItemColor(RGB(255,0,0));
 }
 
@@ -89,6 +91,30 @@ void CGControlDlg::initEdit()
     f.CreateFontIndirectA(&lf);
     aEdit_.SetFont(&f);
     //aEdit_.SetReadOnly();
+}
+
+void CGControlDlg::initListBox()
+{
+    auto n = RGB(255, 255, 255);
+    //aCobo_.loadDownPic(IDB_BITMAP1);
+    aListbox_.InsertString(0, "桔子");
+    aListbox_.InsertString(1, "苹果");
+    aListbox_.InsertString(2, "梨");
+    aListbox_.InsertString(3, "梨");
+    aListbox_.InsertString(4, "梨");
+    aListbox_.InsertString(5, "梨");
+    aListbox_.InsertString(6, "梨");
+    aListbox_.InsertString(7, "梨");
+    aListbox_.InsertString(8, "梨");
+    aListbox_.setItemSelectedColor(RGB(255, 0, 0));
+    CFont f;
+    LOGFONT lf = { 0 };
+    lf.lfHeight = 24;
+    strcpy_s(lf.lfFaceName, "微软雅黑");
+    f.CreateFontIndirectA(&lf);
+    aListbox_.setFont(f);
+    aListbox_.SetCurSel(0);
+
 }
 
 

@@ -39,10 +39,12 @@ CFont & Edit::getFont()
     return font_;
 }
 
+
 BEGIN_MESSAGE_MAP(Edit, CEdit)
     ON_WM_NCPAINT()
     ON_WM_PAINT()
 END_MESSAGE_MAP()
+
 
 void Edit::OnNcPaint()
 {

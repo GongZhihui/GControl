@@ -45,6 +45,12 @@
     <ClInclude Include="GControl\glistbox.h">
       <Filter>GControl</Filter>
     </ClInclude>
+    <ClInclude Include="GControl\gmessagebox.h">
+      <Filter>GControl</Filter>
+    </ClInclude>
+    <ClInclude Include="GControl\gdialog.h">
+      <Filter>GControl</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GControl.cpp">
@@ -66,6 +72,12 @@
       <Filter>GControl</Filter>
     </ClCompile>
     <ClCompile Include="GControl\glistbox.cpp">
+      <Filter>GControl</Filter>
+    </ClCompile>
+    <ClCompile Include="GControl\gmessagebox.cpp">
+      <Filter>GControl</Filter>
+    </ClCompile>
+    <ClCompile Include="GControl\gdialog.cpp">
       <Filter>GControl</Filter>
     </ClCompile>
   </ItemGroup>

@@ -49,6 +49,9 @@ BOOL CGControlDlg::OnInitDialog()
     initComboBox();
     initEdit();
     initListBox();
+    initMessage();
+
+
 	return TRUE;  
 }
 
@@ -115,6 +118,10 @@ void CGControlDlg::initListBox()
     aListbox_.setFont(f);
     aListbox_.SetCurSel(0);
 
+}
+
+void CGControlDlg::initMessage()
+{
 }
 
 

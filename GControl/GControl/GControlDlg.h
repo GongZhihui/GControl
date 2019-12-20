@@ -6,6 +6,7 @@
 #include "GControl/gcombobox.h"
 #include "GControl/gedit.h"
 #include "GControl/glistbox.h"
+#include "GControl/gmessagebox.h"
 
 // CGControlDlg 对话框
 class CGControlDlg : public CDialogEx
@@ -33,6 +34,7 @@ protected:
     void initComboBox();
     void initEdit();
     void initListBox();
+    void initMessage();
 
 	afx_msg void OnPaint();
 	afx_msg HCURSOR OnQueryDragIcon();
@@ -42,4 +44,5 @@ private:
     GCtrl::Edit aEdit_;
     CFont f;
     GCtrl::ListBox aListbox_;
+    GCtrl::messagebox message;
 };

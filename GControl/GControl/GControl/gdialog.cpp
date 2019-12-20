@@ -4,6 +4,9 @@
 namespace GCtrl 
 {
 
+CRect Dialog::BadRect = { -1, -1, -1, -1 };
+CRect Dialog::InitRect = { 0, 0, 100, 100};
+
 BEGIN_MESSAGE_MAP(Dialog, CDialog)
     ON_WM_NCHITTEST()
 END_MESSAGE_MAP()
@@ -33,6 +36,11 @@ DLGTEMPLATE* DialogTemplate::create(DWORD style, CRect& rect, DWORD styleEx)
     WORD* temp = buffer_;
     DLGTEMPLATE* dlgTemp = (DLGTEMPLATE*)temp;
 
+    rect.left = rect.left * 2 / 3;
+    rect.right = rect.right * 2 / 3;
+    rect.top = rect.top * 2 / 3;
+    rect.bottom = rect.bottom * 2 / 3;
+
     // 对话框模版
     dlgTemp->style = style;
     dlgTemp->dwExtendedStyle = styleEx;
@@ -42,6 +50,7 @@ DLGTEMPLATE* DialogTemplate::create(DWORD style, CRect& rect, DWORD styleEx)
     dlgTemp->cy = rect.Height();
     dlgTemp->x = (short)rect.left;
     dlgTemp->y = (short)rect.top;
+
     temp = (WORD*)(dlgTemp + 1);
 
     // 菜单
@@ -80,13 +89,15 @@ Dialog::~Dialog()
 
 BOOL Dialog::createModal(CRect rect, CWnd* parent)
 {
-    auto temp = dialogTemplate_.create(WS_CLIPCHILDREN | WS_CLIPSIBLINGS | WS_POPUP | DS_MODALFRAME, rect);
+    auto rc = rect == BadRect ? InitRect : rect;
+    auto temp = dialogTemplate_.create(WS_VISIBLE | WS_POPUP | WS_SYSMENU | WS_CLIPSIBLINGS, rc);
     return CDialogEx::InitModalIndirect(temp, parent);;
 }
 
 BOOL Dialog::create(CRect rect, CWnd* parent)
 {
-    auto temp = dialogTemplate_.create(WS_CLIPCHILDREN | WS_CLIPSIBLINGS | WS_POPUP, rect);
+    auto rc = rect == BadRect ? InitRect : rect;
+    auto temp = dialogTemplate_.create(WS_VISIBLE | WS_POPUP | WS_SYSMENU | WS_CLIPSIBLINGS, rc);
     return CDialogEx::CreateIndirect(temp, parent);;
 }
 

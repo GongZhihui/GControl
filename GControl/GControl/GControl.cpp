@@ -5,8 +5,8 @@
 #include "stdafx.h"
 #include "GControl.h"
 #include "GControlDlg.h"
-#include "temp.h"
 #include "GControl/gdialog.h"
+#include "resource.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -73,21 +73,14 @@ BOOL CGControlApp::InitInstance()
 
     }*/
 
-    GCtrl::Dialog dlg1;
+    /*GCtrl::Dialog dlg1;
     CString result;
     if (dlg1.create(CRect(0, 0, 100, 100)))
     {
         dlg1.ShowWindow(SW_SHOW);
-    }
-
-    GCtrl::messagebox msg;
-    msg.Create();
-
-
-
-
-
-
+    }*/
+    CRect rect = { 0,0,100,100 };
+   
 
 	CGControlDlg dlg;
 	m_pMainWnd = &dlg;

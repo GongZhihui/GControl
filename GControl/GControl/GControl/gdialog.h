@@ -26,17 +26,20 @@ public:
     ~Dialog();
 
 public:
-    BOOL createModal(CRect rect = {0, 0, 100, 100}, CWnd* parent = nullptr);
-    BOOL create(CRect rect = { 0, 0, 100, 100}, CWnd* parent = nullptr);
+    BOOL createModal(CRect rect = InitRect, CWnd* parent = nullptr);
+    BOOL create(CRect rect = InitRect, CWnd* parent = nullptr);
     void setWindowRect(const CRect &rect);
 
-private:
     BOOL OnInitDialog();
     afx_msg LRESULT OnNcHitTest(CPoint point);
     DECLARE_MESSAGE_MAP()
     
 private:
     DialogTemplate dialogTemplate_;
+
+protected:
+    static CRect BadRect;
+    static CRect InitRect;
     CRect windowRect_;
 };
 

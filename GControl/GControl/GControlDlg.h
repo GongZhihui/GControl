@@ -5,8 +5,6 @@
 #pragma once
 #include "GControl/gcombobox.h"
 #include "GControl/gedit.h"
-#include "GControl/glistbox.h"
-#include "GControl/gmessagebox.h"
 
 // CGControlDlg 对话框
 class CGControlDlg : public CDialogEx
@@ -44,5 +42,4 @@ private:
     GCtrl::Edit aEdit_;
     CFont f;
     GCtrl::ListBox aListbox_;
-    GCtrl::messagebox message;
 };

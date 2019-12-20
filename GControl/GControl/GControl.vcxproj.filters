@@ -45,9 +45,6 @@
     <ClInclude Include="GControl\glistbox.h">
       <Filter>GControl</Filter>
     </ClInclude>
-    <ClInclude Include="GControl\gmessagebox.h">
-      <Filter>GControl</Filter>
-    </ClInclude>
     <ClInclude Include="GControl\gdialog.h">
       <Filter>GControl</Filter>
     </ClInclude>
@@ -74,9 +71,6 @@
     <ClCompile Include="GControl\glistbox.cpp">
       <Filter>GControl</Filter>
     </ClCompile>
-    <ClCompile Include="GControl\gmessagebox.cpp">
-      <Filter>GControl</Filter>
-    </ClCompile>
     <ClCompile Include="GControl\gdialog.cpp">
       <Filter>GControl</Filter>
     </ClCompile>
@@ -96,6 +90,9 @@
       <Filter>资源文件</Filter>
     </Image>
     <Image Include="GControl\image\combobox.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\messagebox.bmp">
       <Filter>资源文件</Filter>
     </Image>
   </ItemGroup>

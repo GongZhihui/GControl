@@ -5,7 +5,9 @@
 namespace GCtrl 
 {
 
-class ListBox : public CListBox
+class ListBox 
+    : public CListBox
+    , public Basic
 {
 public:
     ListBox();
@@ -16,13 +18,11 @@ public:
     // 设置listbox选中行的背景颜色，文字颜色
     void setItemSelectedColor(COLORREF bkColor = BadColor, COLORREF textColor = BadColor);
 
-    void setFont(CFont &font);
-    void setFont(const LOGFONT &lf);
 private:
+    DECLARE_MESSAGE_MAP()
     void DrawItem(LPDRAWITEMSTRUCT lps);
 
 private:
-    CFont font_;
     COLORREF itemBkClr_{ BadColor };
     COLORREF itemTextClr_{ BadColor };
     COLORREF itemSelectedBkClr_{ BadColor };

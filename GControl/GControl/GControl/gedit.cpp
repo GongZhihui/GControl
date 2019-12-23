@@ -4,6 +4,10 @@
 namespace GCtrl 
 {
 
+BEGIN_MESSAGE_MAP(Edit, CEdit)
+    ON_WM_NCPAINT()
+END_MESSAGE_MAP()
+
 Edit::Edit()
 {
 }
@@ -20,30 +24,6 @@ void Edit::setRoundPoint(CPoint point)
     arcPoint_ = point;
 }
 
-void Edit::setFont(CFont & font)
-{
-    if (!font.GetSafeHandle())
-        return;
-    LOGFONT lf;
-    font.GetLogFont(&lf);
-    setFont(lf);
-}
-
-void Edit::setFont(const LOGFONT & lf)
-{
-    font_.CreateFontIndirect(&lf);
-}
-
-CFont & Edit::getFont()
-{
-    return font_;
-}
-
-BEGIN_MESSAGE_MAP(Edit, CEdit)
-    ON_WM_NCPAINT()
-    ON_WM_PAINT()
-END_MESSAGE_MAP()
-
 void Edit::OnNcPaint()
 {
     CWindowDC dc(this);
@@ -57,7 +37,6 @@ void Edit::OnNcPaint()
     rect.bottom += 1;
     CPen pen;
     pen.CreatePen(PS_SOLID, 1, borderClr_);
-    CPen *oldPen;
     dc.SelectObject(pen);
     dc.RoundRect(rect, arcPoint_);
 }

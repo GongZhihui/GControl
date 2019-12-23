@@ -189,24 +189,35 @@
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="CtrlDlg.h" />
     <ClInclude Include="GControl.h" />
     <ClInclude Include="GControlDlg.h" />
     <ClInclude Include="GControl\basic.h" />
+    <ClInclude Include="GControl\gbutton.h" />
+    <ClInclude Include="GControl\gcontrol.h" />
+    <ClInclude Include="GControl\gstatic.h" />
+    <ClInclude Include="GControl\gctrlhelper.h" />
     <ClInclude Include="GControl\gdialog.h" />
     <ClInclude Include="GControl\gcombobox.h" />
     <ClInclude Include="GControl\gedit.h" />
     <ClInclude Include="GControl\glistbox.h" />
+    <ClInclude Include="GControl\ggroupbox.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CtrlDlg.cpp" />
     <ClCompile Include="GControl.cpp" />
     <ClCompile Include="GControlDlg.cpp" />
     <ClCompile Include="GControl\basic.cpp" />
+    <ClCompile Include="GControl\gbutton.cpp" />
+    <ClCompile Include="GControl\gstaticl.cpp" />
+    <ClCompile Include="GControl\gctrlhelper.cpp" />
     <ClCompile Include="GControl\gdialog.cpp" />
     <ClCompile Include="GControl\gcombobox.cpp" />
     <ClCompile Include="GControl\gedit.cpp" />
+    <ClCompile Include="GControl\ggroupbox.cpp" />
     <ClCompile Include="GControl\glistbox.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -223,7 +234,13 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="GControl\image\combobox.bmp" />
+    <Image Include="res\bitmap3.bmp" />
+    <Image Include="res\bk.bmp" />
     <Image Include="res\GControl.ico" />
+    <Image Include="res\kpsz.bmp" />
+    <Image Include="res\kpsz_hover.bmp" />
+    <Image Include="res\kpsz_hover_press.bmp" />
+    <Image Include="res\kpsz_press.bmp" />
     <Image Include="res\messagebox.bmp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -29,6 +29,9 @@ void CGControlDlg::DoDataExchange(CDataExchange* pDX)
     DDX_Control(pDX, IDC_COMBO_A, aCobo_);
     DDX_Control(pDX, IDC_EDIT_A, aEdit_);
     DDX_Control(pDX, IDC_LISTBOX_A, aListbox_);
+    DDX_Control(pDX, IDC_STATIC_DXAN, dcanStc);
+    DDX_Control(pDX, IDC_RADIO_A, dxanAStc_);
+    DDX_Control(pDX, IDC_RADIO_B, dxanBStc_);
 }
 
 BEGIN_MESSAGE_MAP(CGControlDlg, CDialogEx)
@@ -46,13 +49,21 @@ BOOL CGControlDlg::OnInitDialog()
 	SetIcon(m_hIcon, TRUE);			// 设置大图标
 	SetIcon(m_hIcon, FALSE);		// 设置小图标
 
+    initBK();
     initComboBox();
     initEdit();
     initListBox();
     initMessage();
-
+    initDXAN();
 
 	return TRUE;  
+}
+
+void CGControlDlg::initBK()
+{
+    bk_.LoadBitmapA(IDB_BITMAP_BK);
+    
+    
 }
 
 void CGControlDlg::initComboBox()
@@ -124,6 +135,15 @@ void CGControlDlg::initMessage()
 {
 }
 
+void CGControlDlg::initDXAN()
+{
+    /*dxanAStc_.SetParent(&dcanStc);
+    dxanBStc_.SetParent(&dcanStc);
+
+    nvStc_.SetParent(&xbStc_);
+    nanStc_.SetParent(&xbStc_);*/
+}
+
 
 void CGControlDlg::OnPaint()
 {
@@ -157,3 +177,9 @@ HCURSOR CGControlDlg::OnQueryDragIcon()
 	return static_cast<HCURSOR>(m_hIcon);
 }
 
+
+
+void CGControlDlg::OnBnClickedRadioNan()
+{
+    // TODO: 在此添加控件通知处理程序代码
+}

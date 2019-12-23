@@ -23,10 +23,11 @@ public:
 // 重写
 public:
 	virtual BOOL InitInstance();
-
+    ULONG_PTR   gdiplusToken;
 // 实现
 
 	DECLARE_MESSAGE_MAP()
+    virtual int ExitInstance();
 };
 
 extern CGControlApp theApp;

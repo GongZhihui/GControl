@@ -48,6 +48,24 @@
     <ClInclude Include="GControl\gdialog.h">
       <Filter>GControl</Filter>
     </ClInclude>
+    <ClInclude Include="GControl\gctrlhelper.h">
+      <Filter>GControl</Filter>
+    </ClInclude>
+    <ClInclude Include="CtrlDlg.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="GControl\ggroupbox.h">
+      <Filter>GControl</Filter>
+    </ClInclude>
+    <ClInclude Include="GControl\gcontrol.h">
+      <Filter>GControl</Filter>
+    </ClInclude>
+    <ClInclude Include="GControl\gstatic.h">
+      <Filter>GControl</Filter>
+    </ClInclude>
+    <ClInclude Include="GControl\gbutton.h">
+      <Filter>GControl</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GControl.cpp">
@@ -74,6 +92,21 @@
     <ClCompile Include="GControl\gdialog.cpp">
       <Filter>GControl</Filter>
     </ClCompile>
+    <ClCompile Include="GControl\gctrlhelper.cpp">
+      <Filter>GControl</Filter>
+    </ClCompile>
+    <ClCompile Include="CtrlDlg.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="GControl\ggroupbox.cpp">
+      <Filter>GControl</Filter>
+    </ClCompile>
+    <ClCompile Include="GControl\gstaticl.cpp">
+      <Filter>GControl</Filter>
+    </ClCompile>
+    <ClCompile Include="GControl\gbutton.cpp">
+      <Filter>GControl</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="GControl.rc">
@@ -93,6 +126,24 @@
       <Filter>资源文件</Filter>
     </Image>
     <Image Include="res\messagebox.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\bk.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\kpsz.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\kpsz_hover.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\kpsz_hover_press.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\bitmap3.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\kpsz_press.bmp">
       <Filter>资源文件</Filter>
     </Image>
   </ItemGroup>

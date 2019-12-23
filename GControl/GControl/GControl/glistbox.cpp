@@ -4,6 +4,10 @@
 namespace GCtrl
 {
 
+BEGIN_MESSAGE_MAP(ListBox, CListBox)
+   
+END_MESSAGE_MAP()
+
 ListBox::ListBox()
 {
 }
@@ -22,20 +26,6 @@ void ListBox::setItemSelectedColor(COLORREF bkColor, COLORREF textColor)
 {
     itemSelectedBkClr_ = bkColor;
     itemSelectedTextClr_ = textColor;
-}
-
-void ListBox::setFont(CFont & font)
-{
-    if (!font.GetSafeHandle())
-        return;
-    LOGFONT lf;
-    font.GetLogFont(&lf);
-    setFont(lf);
-}
-
-void ListBox::setFont(const LOGFONT & lf)
-{
-    font_.CreateFontIndirect(&lf);
 }
 
 void ListBox::DrawItem(LPDRAWITEMSTRUCT lps)

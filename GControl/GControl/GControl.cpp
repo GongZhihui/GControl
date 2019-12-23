@@ -7,6 +7,8 @@
 #include "GControlDlg.h"
 #include "GControl/gdialog.h"
 #include "resource.h"
+#include "CtrlDlg.h"
+#include <GdiPlus.h>
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -41,29 +43,24 @@ CGControlApp theApp;
 
 BOOL CGControlApp::InitInstance()
 {
-	// 如果一个运行在 Windows XP 上的应用程序清单指定要
-	// 使用 ComCtl32.dll 版本 6 或更高版本来启用可视化方式，
-	//则需要 InitCommonControlsEx()。  否则，将无法创建窗口。
 	INITCOMMONCONTROLSEX InitCtrls;
 	InitCtrls.dwSize = sizeof(InitCtrls);
-	// 将它设置为包括所有要在应用程序中使用的
-	// 公共控件类。
 	InitCtrls.dwICC = ICC_WIN95_CLASSES;
 	InitCommonControlsEx(&InitCtrls);
-
 	CWinApp::InitInstance();
-
-
 	AfxEnableControlContainer();
-
-	// 创建 shell 管理器，以防对话框包含
-	// 任何 shell 树视图控件或 shell 列表视图控件。
 	CShellManager *pShellManager = new CShellManager;
 
 	// 激活“Windows Native”视觉管理器，以便在 MFC 控件中启用主题
 	CMFCVisualManager::SetDefaultManager(RUNTIME_CLASS(CMFCVisualManagerWindows));
 
 	SetRegistryKey(_T("应用程序向导生成的本地应用程序"));
+
+    Gdiplus::GdiplusStartupInput gdiplusStartupInput;
+    Gdiplus::GdiplusStartup(&gdiplusToken, &gdiplusStartupInput, NULL);
+
+    CCtrlDlg cdlg;
+    cdlg.DoModal();
 
     /*GCtrl::Dialog dlg1;
     CString result;
@@ -116,3 +113,10 @@ BOOL CGControlApp::InitInstance()
 	return FALSE;
 }
 
+
+
+int CGControlApp::ExitInstance()
+{
+    Gdiplus::GdiplusShutdown(gdiplusToken);
+    return CWinApp::ExitInstance();
+}

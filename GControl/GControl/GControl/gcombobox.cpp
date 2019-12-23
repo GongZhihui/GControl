@@ -11,6 +11,16 @@ namespace GCtrl
 
 IMPLEMENT_DYNAMIC(ComboBox, CComboBox)
 
+BEGIN_MESSAGE_MAP(ComboBox, CComboBox)
+    ON_WM_PAINT()
+    ON_CONTROL_REFLECT(CBN_SELCHANGE, &ComboBox::OnCbnSelchange)
+    ON_CONTROL_REFLECT(CBN_DROPDOWN, &ComboBox::OnCbnDropdown)
+    ON_WM_CTLCOLOR()
+    ON_WM_DESTROY()
+    ON_WM_KILLFOCUS()
+    ON_WM_SETFOCUS()
+END_MESSAGE_MAP()
+
 ComboBox::ComboBox()
 {
 }
@@ -82,6 +92,16 @@ void ComboBox::setFont(LOGFONT & lf)
     edit_.setFont(lf);
 }
 
+void ComboBox::setSelChange(SelChange && selChange)
+{
+    selChange_ = std::move(selChange);
+}
+
+void ComboBox::setDropDown(DropDown && dropDown)
+{
+    dropDown_ = std::move(dropDown);
+}
+
 void ComboBox::OnPaint()
 {
     CPaintDC dc(this);
@@ -107,15 +127,6 @@ void ComboBox::OnPaint()
 void ComboBox::DrawItem(LPDRAWITEMSTRUCT lps)
 {
 }
-
-BEGIN_MESSAGE_MAP(ComboBox, CComboBox)
-    ON_WM_PAINT()
-    ON_CONTROL_REFLECT(CBN_SELCHANGE, &ComboBox::OnCbnSelchange)
-    ON_WM_CTLCOLOR()
-    ON_WM_DESTROY()
-    ON_WM_KILLFOCUS()
-    ON_WM_SETFOCUS()
-END_MESSAGE_MAP()
 
 void ComboBox::DrawPicture(CDC* pDC, CRect rect)
 {
@@ -178,19 +189,14 @@ void ComboBox::DrawShowText(CDC* pDC, CRect rect)
 void ComboBox::OnCbnSelchange()
 {
     Invalidate();
+    if (selChange_)
+        selChange_();
 }
 
 void ComboBox::OnCbnDropdown()
 {
-    COMBOBOXINFO comboInfo;
-    comboInfo.cbSize = sizeof(COMBOBOXINFO);
-    GetComboBoxInfo(&comboInfo);
-    CWindowDC dc(this);
-    CRect rect;
-    CBrush brush;
-    brush.CreateSolidBrush(outerClr_);
-    ::GetWindowRect(comboInfo.hwndList, rect);
-    dc.FrameRect(rect, &brush);
+    if (dropDown_)
+        dropDown_();
 }
 
 
@@ -242,4 +248,3 @@ void ComboBox::OnSetFocus(CWnd* pOldWnd)
 }
 
 } // !GCtrl
-

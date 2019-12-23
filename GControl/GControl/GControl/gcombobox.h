@@ -3,15 +3,21 @@
 #include "basic.h"
 #include "gedit.h"
 #include "glistbox.h"
+#include <functional>
 
 namespace GCtrl
 {
 
-class ComboBox : public CComboBox
+class ComboBox 
+    : public CComboBox
+    , public Basic
 {
     DECLARE_DYNAMIC(ComboBox)
 
 public:
+    using SelChange = std::function<void(void)>;
+    using DropDown = std::function<void(void)>;
+
     ComboBox();
     virtual ~ComboBox();
 
@@ -38,6 +44,9 @@ public:
     void setFont(CFont &font);
     void setFont(LOGFONT &lf);
    
+    void setSelChange(SelChange &&selChange);
+    void setDropDown(DropDown &&dropDown);
+
 private:
     void DrawItem(LPDRAWITEMSTRUCT lps);
     void DrawShowText(CDC* pDC, CRect rect);
@@ -65,9 +74,11 @@ private:
     COLORREF outerClr_{ RGB(195, 215, 220) };
     COLORREF btnClr_{ RGB(127,127,127) };
 
-    CFont font_;
     ListBox listBox_;
     Edit edit_;
+
+    SelChange selChange_;
+    DropDown dropDown_;
 };
 
 } // !GCtrl

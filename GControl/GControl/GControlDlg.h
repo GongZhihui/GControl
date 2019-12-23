@@ -29,17 +29,28 @@ protected:
 	// 生成的消息映射函数
 	virtual BOOL OnInitDialog();
 
+    void initBK();
     void initComboBox();
     void initEdit();
     void initListBox();
     void initMessage();
+    void initDXAN();
 
 	afx_msg void OnPaint();
 	afx_msg HCURSOR OnQueryDragIcon();
 	DECLARE_MESSAGE_MAP()
 private:
+    CBitmap bk_;
     GCtrl::ComboBox aCobo_;
     GCtrl::Edit aEdit_;
     CFont f;
     GCtrl::ListBox aListbox_;
+public:
+    CStatic dcanStc;
+    CStatic xbStc_;
+    CButton dxanAStc_;
+    CButton dxanBStc_;
+    CButton nanStc_;
+    CButton nvStc_;
+    afx_msg void OnBnClickedRadioNan();
 };

@@ -39,6 +39,8 @@ void CCtrlDlg::DoDataExchange(CDataExchange* pDX)
 
 
 BEGIN_MESSAGE_MAP(CCtrlDlg, CDialogEx)
+    ON_BN_CLICKED(IDC_BUTTON_TEST, &CCtrlDlg::OnBnClickedButtonTest)
+    ON_BN_CLICKED(IDC_BUTTON1, &CCtrlDlg::OnBnClickedButton1)
 END_MESSAGE_MAP()
 
 
@@ -76,8 +78,30 @@ void CCtrlDlg::initBtn()
 {
     testBtn_.setBitmap(IDB_BITMAP_SPSZ, IDB_BITMAP_SPSZ_HOVER, IDB_BITMAP_SPSZ_PRESS);
     testBtn_.setSize({0,0,80,26});
-    testRiobtn_.SetCheck(BST_CHECKED);
     testRiobtn_.setCheck();
+    testRiobtn_.setParent(this);
+    testRiobtn_.setGroup(&zwflGpbox_);
+    testRiobtn2_.setParent(this);
+    testRiobtn2_.setGroup(&zwflGpbox_);
+    testRiobtn3_.setParent(this);
+    testRiobtn3_.setGroup(&zwflGpbox_);
 
-    testRiobtn2_.SetCheck(BST_CHECKED);
+    testChkbox_.setCheck();
+    testChkbox_.setParent(this);
+}
+
+
+void CCtrlDlg::OnBnClickedButtonTest()
+{
+    CString log;
+    log.Format("%d %d %d %d", testRiobtn_.getCheck(), 
+        testRiobtn2_.getCheck(), testRiobtn3_.getCheck(),
+        testChkbox_.getCheck());
+    AfxMessageBox(log);
+}
+
+
+void CCtrlDlg::OnBnClickedButton1()
+{
+    OnOK();
 }

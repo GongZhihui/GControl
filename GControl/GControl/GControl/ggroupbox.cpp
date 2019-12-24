@@ -22,6 +22,17 @@ void GroupBox::setTopPos(int pos)
     topPos_ = pos;
 }
 
+void GroupBox::push_back(CButton * btn)
+{
+    if(btn)
+        radioBtns_.push_back(btn);
+}
+
+GroupBox::RadioBtns & GroupBox::radioBtns()
+{
+    return radioBtns_;
+}
+
 void GroupBox::OnPaint()
 {
     CPaintDC dc(this); 

@@ -38,7 +38,9 @@ public:
     GCtrl::Static tipStc_;
     GCtrl::PushButton testBtn_;
     GCtrl::RadioButton testRiobtn_;
-    CButton testRiobtn2_;
-    CButton testRiobtn3_;
+    GCtrl::RadioButton testRiobtn2_;
+    GCtrl::RadioButton testRiobtn3_;
     GCtrl::CheckBox testChkbox_;
+    afx_msg void OnBnClickedButtonTest();
+    afx_msg void OnBnClickedButton1();
 };

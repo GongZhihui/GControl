@@ -3,7 +3,7 @@
 mfc一些常用控件的美化
 
 ## 已经完成的控件  
-* 基于内存模板的dialog
+* [基于内存模板的dialog](./GControl/GControl/GControl/gdialog.h)
 * [static控件](./GControl/GControl/GControl/gstatic.h)
 * [listbox控件](./GControl/GControl/GControl/glistbox.h)
 * [combobox控件](./GControl/GControl/GControl/gcombobox.h)

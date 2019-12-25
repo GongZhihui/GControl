@@ -22,6 +22,16 @@
 namespace GCtrl 
 {
 
+/** Button 一个基类
+    类型：
+        PushButton 普通按钮
+        Radio 单选框 必须配合GCtrl::GroupBbox, 不可使用GetCheck和SetCheck，得使用getCheck和setCheck
+        CheckBox 复选框 不可使用GetCheck和SetCheck，得使用getCheck和setCheck
+        ButtonEx 可使用CButton的全部函数，区别是自带背景透明
+        
+        以上几种子类未提供默认构造,都必须有parent
+
+*/
 class Button : public CButton
 {
 public:
@@ -29,11 +39,14 @@ public:
     {
         PushButton,
         Radio,
-        CheckBox
+        CheckBox,
+        // 就是系统按钮，背景透明
+        ButtonEx
     };
 
-    Button();
-    Button(BtnType type);
+    // 使用引用是为了保证父对象必须存在
+    Button(CWnd &parent);
+    Button(BtnType type, CWnd &parent);
     virtual ~Button();
 
     void setSize(const CRect &rect);
@@ -48,6 +61,7 @@ private:
     void DrawItem(LPDRAWITEMSTRUCT lps);
     void OnPaint();
     void PreSubclassWindow() override;
+    HBRUSH CtlColor(CDC *dc, UINT col);
     afx_msg void OnMouseHover(UINT nFlags, CPoint point);
     afx_msg void OnMouseMove(UINT nFlags, CPoint point);
     afx_msg void OnMouseLeave();
@@ -74,23 +88,27 @@ protected:
 class PushButton : public Button 
 {
 public:
-    PushButton();
+    PushButton(CWnd &parent);
 };
 
 class RadioButton : public Button 
 {
 public:
-    RadioButton();
+    RadioButton(CWnd &parent);
 };
 
 class CheckBox : public Button 
 {
 public:
-    CheckBox();
+    CheckBox(CWnd &parent);
 };
 
-
-
+// 系统button，自动背景透明
+class ButtonEx : public Button 
+{
+public:
+    ButtonEx(CWnd &parent);
+};
 
 
 } // !namespace GCtrl

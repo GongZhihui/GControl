@@ -32,15 +32,17 @@ private:
 public:
     //CStatic zwflGpbox_;
     GCtrl::GroupBox zwflGpbox_;
-    CButton cxyRiobtn_;
-    CButton xmjlRiobtn_;
-    CButton xsRiobtn_;
+    GCtrl::ButtonEx cxyRiobtn_{*this};
+    GCtrl::ButtonEx xmjlRiobtn_{*this};
+    GCtrl::ButtonEx xsRiobtn_{*this};
     GCtrl::Static tipStc_;
-    GCtrl::PushButton testBtn_;
-    GCtrl::RadioButton testRiobtn_;
-    GCtrl::RadioButton testRiobtn2_;
-    GCtrl::RadioButton testRiobtn3_;
-    GCtrl::CheckBox testChkbox_;
+    GCtrl::PushButton testBtn_{*this};
+    GCtrl::RadioButton testRiobtn_{ *this };
+    GCtrl::RadioButton testRiobtn2_{ *this };
+    GCtrl::RadioButton testRiobtn3_{ *this };
+    GCtrl::CheckBox testChkbox_{ *this };
     afx_msg void OnBnClickedButtonTest();
     afx_msg void OnBnClickedButton1();
+    CDateTimeCtrl dtc_;
+    GCtrl::ButtonEx testCheckBox_{ *this };
 };

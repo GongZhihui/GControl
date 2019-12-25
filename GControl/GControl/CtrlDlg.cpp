@@ -35,6 +35,8 @@ void CCtrlDlg::DoDataExchange(CDataExchange* pDX)
     DDX_Control(pDX, IDC_CHECK_TEST, testChkbox_);
     DDX_Control(pDX, IDC_RADIO_TEST2, testRiobtn2_);
     DDX_Control(pDX, IDC_RADIO_TEST3, testRiobtn3_);
+    DDX_Control(pDX, IDC_DATETIMEPICKER, dtc_);
+    DDX_Control(pDX, IDC_CHECK_TEST2, testCheckBox_);
 }
 
 
@@ -78,6 +80,7 @@ void CCtrlDlg::initBtn()
 {
     testBtn_.setBitmap(IDB_BITMAP_SPSZ, IDB_BITMAP_SPSZ_HOVER, IDB_BITMAP_SPSZ_PRESS);
     testBtn_.setSize({0,0,80,26});
+    testBtn_.setParent(this);
     testRiobtn_.setCheck();
     testRiobtn_.setParent(this);
     testRiobtn_.setGroup(&zwflGpbox_);
@@ -88,15 +91,17 @@ void CCtrlDlg::initBtn()
 
     testChkbox_.setCheck();
     testChkbox_.setParent(this);
+    testCheckBox_.setParent(this);
 }
 
 
 void CCtrlDlg::OnBnClickedButtonTest()
 {
     CString log;
-    log.Format("%d %d %d %d", testRiobtn_.getCheck(), 
+    log.Format("%d %d %d %d -%d == %d %d %d", testRiobtn_.getCheck(), 
         testRiobtn2_.getCheck(), testRiobtn3_.getCheck(),
-        testChkbox_.getCheck());
+        testChkbox_.getCheck(), testCheckBox_.GetCheck() == BST_CHECKED,
+        cxyRiobtn_.GetCheck(), xmjlRiobtn_.GetCheck(), xsRiobtn_.GetCheck());
     AfxMessageBox(log);
 }
 

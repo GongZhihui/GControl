@@ -23,7 +23,7 @@ namespace GCtrl
 {
 
 BEGIN_MESSAGE_MAP(Button, CButton)
-    //ON_WM_CTLCOLOR_REFLECT()
+    ON_WM_CTLCOLOR_REFLECT()
     ON_WM_MOUSEHOVER()
     ON_WM_MOUSEMOVE()
     ON_WM_MOUSELEAVE()
@@ -33,12 +33,25 @@ BEGIN_MESSAGE_MAP(Button, CButton)
     //ON_WM_PAINT()
 END_MESSAGE_MAP()
 
-Button::Button()
+Button::Button(CWnd &parent)
+    : parent_{ &parent}
 {
 }
 
-Button::Button(BtnType type)
-    :btnType_{type}
+HBRUSH Button::CtlColor(CDC *dc, UINT col)
+{
+    CRect rc;
+    GetWindowRect(&rc);
+    ScreenToClient(&rc);
+    CDC* pdc = parent_->GetDC();
+    dc->BitBlt(0, 0, rc.Width(), rc.Height(), pdc, rc.left, rc.top, SRCCOPY);
+    parent_->ReleaseDC(pdc);
+    return (HBRUSH)::GetStockObject(NULL_BRUSH);
+}
+
+Button::Button(BtnType type, CWnd &parent)
+    : btnType_{type}
+    , parent_{&parent}
 {
 }
 
@@ -199,7 +212,38 @@ void Button::DrawItem(LPDRAWITEMSTRUCT lps)
 void Button::OnPaint()
 {
     CPaintDC dc(this);
-   
+    CRect rcClient, rcClip, rcHeader;
+    GetClientRect(&rcClient);
+
+    dc.GetClipBox(&rcClip);
+
+    CDC MemDC;
+    CBitmap MemBitmap, *pOldBitmap;
+
+    MemDC.CreateCompatibleDC(&dc);
+    int nMode = MemDC.SetMapMode(dc.GetMapMode());
+
+    MemBitmap.CreateCompatibleBitmap(&dc, rcClient.Width(), rcClient.Height());
+    pOldBitmap = MemDC.SelectObject(&MemBitmap);
+    MemDC.FillSolidRect(&rcClient, GetBkColor(dc.m_hDC));
+
+    CRgn rgn;
+    rgn.CreateRectRgn(rcClip.left, rcClip.top, rcClip.right, rcClip.bottom);
+    MemDC.SelectClipRgn(&rgn);
+    DefWindowProc(WM_PAINT, (WPARAM)MemDC.m_hDC, (LPARAM)0);
+    MemDC.SelectClipRgn(NULL);
+
+    if (rcClip.top < rcHeader.Height())
+        rcClip.top = rcHeader.Height();
+
+    dc.BitBlt(rcClip.left, rcClip.top, rcClip.Width(), rcClip.Height(), &MemDC, rcClip.left, rcClip.top, SRCCOPY);
+
+    MemDC.SetMapMode(nMode);
+    MemDC.SelectObject(pOldBitmap);
+    MemDC.DeleteDC();
+    MemBitmap.DeleteObject();
+    rgn.DeleteObject();
+    
 }
 
 void Button::OnLButtonDown(UINT nFlags, CPoint point)
@@ -251,7 +295,8 @@ BOOL Button::OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message)
 
 void Button::PreSubclassWindow()
 {
-    ModifyStyle(0, BS_OWNERDRAW, SWP_FRAMECHANGED);
+    if(btnType_ != BtnType::ButtonEx)
+        ModifyStyle(0, BS_OWNERDRAW, SWP_FRAMECHANGED);
     CButton::PreSubclassWindow();
 }
 
@@ -312,23 +357,28 @@ void Button::setGroup(GroupBox * group)
 
 
 
-PushButton::PushButton()
-    : Button{ BtnType::PushButton}
+PushButton::PushButton(CWnd &parent)
+    : Button{ BtnType::PushButton, parent}
 {
 }
 
-RadioButton::RadioButton()
-    : Button{BtnType::Radio}
+RadioButton::RadioButton(CWnd &parent)
+    : Button{BtnType::Radio, parent}
 {
 }
 
-CheckBox::CheckBox()
-    : Button{BtnType::CheckBox}
+CheckBox::CheckBox(CWnd &parent)
+    : Button{BtnType::CheckBox, parent}
 {
 }
 
 
 
+
+ButtonEx::ButtonEx(CWnd & parent)
+    : Button{ BtnType::ButtonEx, parent }
+{
+}
 
 } // !namespace GCtrl
 

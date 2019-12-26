@@ -47,7 +47,7 @@ void ListBox::setItemSelectedColor(COLORREF bkColor, COLORREF textColor)
 
 void ListBox::DrawItem(LPDRAWITEMSTRUCT lps)
 {
-    CDC *dc = CDC::FromHandle(lps->hDC);
+    auto dc = CDC::FromHandle(lps->hDC);
     int item = lps->itemID;
     CRect rcItem = lps->rcItem;
     HICON hIcon = (HICON)lps->itemData;
@@ -79,8 +79,8 @@ void ListBox::DrawItem(LPDRAWITEMSTRUCT lps)
                 clrText = itemTextClr_;
         }
 
-        CFont *curFont = font_.GetSafeHandle() ? &font_ : GetFont();
-        CFont *oldFont = dc->SelectObject(curFont);
+        auto curFont = font_.GetSafeHandle() ? &font_ : GetFont();
+        auto oldFont = dc->SelectObject(curFont);
         dc->SetTextColor(clrText);
         dc->SetBkColor(clrBackground);
         dc->ExtTextOut(0, 0, ETO_OPAQUE, rcText, NULL, 0, NULL);

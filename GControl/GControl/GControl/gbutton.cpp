@@ -39,16 +39,17 @@ Button::Button(CWnd &parent)
 
 HBRUSH Button::CtlColor(CDC *dc, UINT col)
 {
-    if (btnType_ == BtnType::ButtonEx)
+    CRect rc;
+    auto pdc = parent_->GetDC();
+    GetWindowRect(rc);
+    parent_->ScreenToClient(&rc);
+    auto color = pdc->GetPixel(rc.left + rc.Width() / 2, rc.top + rc.Height() / 2);
+    bkcolor_ = bkcolor_ == BadColor ? color : bkcolor_;
+    if (!bkbrush_.m_hObject)
     {
-        CRect rc;
-        GetWindowRect(&rc);
-        parent_->ScreenToClient(&rc);
-        CDC* pdc = parent_->GetDC();
-        dc->BitBlt(0, 0, rc.Width(), rc.Height(), pdc, rc.left, rc.top, SRCCOPY);
-        parent_->ReleaseDC(pdc);
+        bkbrush_.CreateSolidBrush(bkcolor_);
     }
-    return (HBRUSH)::GetStockObject(NULL_BRUSH);
+    return bkbrush_;
 }
 
 Button::Button(BtnType type, CWnd &parent)
@@ -89,9 +90,8 @@ void Button::OnMouseLeave()
 
 void Button::DrawItem(LPDRAWITEMSTRUCT lps)
 {
-    CDC *dc = CDC::FromHandle(lps->hDC);
+    auto dc = CDC::FromHandle(lps->hDC);
     CRect rect = lps->rcItem;
-    dc->SetBkMode(TRANSPARENT);
     CRect winRect;
     GetWindowRect(winRect);
 
@@ -286,8 +286,6 @@ BOOL Button::OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message)
 
 void Button::PreSubclassWindow()
 {
-    bkbrush_.CreateSolidBrush(RGB(255,0,0));
-
     if(btnType_ != BtnType::ButtonEx)
         ModifyStyle(0, BS_OWNERDRAW, SWP_FRAMECHANGED);
     CButton::PreSubclassWindow();

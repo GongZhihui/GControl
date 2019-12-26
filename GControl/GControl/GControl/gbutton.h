@@ -80,7 +80,9 @@ protected:
     CWnd *parent_{ nullptr };
     GroupBox *group_{ nullptr };
 
+    COLORREF bkcolor_{ BadColor };
     CBrush bkbrush_;
+
     bool hover_{ false };
     bool press_{ false };
     bool check_{ false };

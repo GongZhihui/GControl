@@ -169,14 +169,13 @@ void ComboBox::DrawPicture(CDC* pDC, CRect rect)
     {
         rect.left = rect.right - rect.Height();
         CBitmap* oldBmp;
-        CDC* memDc = new CDC;
+        auto memDc = new CDC;
 
         memDc->CreateCompatibleDC(pDC);
         oldBmp = memDc->SelectObject(&downBmp_);
         BITMAP bmp = { 0 };
         downBmp_.GetObject(sizeof(bmp), &bmp);
         pDC->StretchBlt(rect.left, rect.top, rect.Width(), rect.Height(), memDc, 0, 0, bmp.bmWidth, bmp.bmHeight, SRCCOPY);
-        //pDC->BitBlt(rect.left, rect.top, rect.Width(), rect.Height(), memDc, 0, 0, SRCCOPY);
         memDc->SelectObject(oldBmp);
 
         ReleaseDC(memDc);
@@ -192,8 +191,8 @@ void ComboBox::DrawShowText(CDC* pDC, CRect rect)
     CString text;
     GetWindowText(text);
 
-    CFont *curFont = font_.GetSafeHandle() ? &font_ : GetFont();
-    CFont* oldFont = pDC->SelectObject(curFont);
+    auto curFont = font_.GetSafeHandle() ? &font_ : GetFont();
+    auto oldFont = pDC->SelectObject(curFont);
     int bkMode = pDC->SetBkMode(TRANSPARENT);
     pDC->SetTextColor(textClr_);
     pDC->DrawText(text, rc, DT_LEFT | DT_VCENTER | DT_SINGLELINE);

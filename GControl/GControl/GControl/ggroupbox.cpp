@@ -74,11 +74,11 @@ void GroupBox::OnPaint()
     dc.Rectangle(rccli);
 
     //显示文本
-    CWnd *parent = GetParent();
-    if (NULL != parent)
+    auto parent = GetParent();
+    if (parent)
     {
         //根据父窗口像素点的颜色来获取父窗口的背景颜色
-        COLORREF colorRef = parent->GetDC()->GetPixel(1, 1);
+        auto colorRef = parent->GetDC()->GetPixel(1, 1);
         //设置文本的背景颜色为父窗口的背景颜色    
         dc.SetBkColor(colorRef);
     }

@@ -21,14 +21,6 @@
 namespace GCtrl
 {
 
-CString GetCurrentDir()
-{
-    CString path;
-    GetCurrentDirectory(300, path.GetBuffer(200));
-    path.ReleaseBuffer();
-    return path;
-}
-
 Basic::Basic()
 {
 }

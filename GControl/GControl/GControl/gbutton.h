@@ -80,9 +80,11 @@ protected:
     CWnd *parent_{ nullptr };
     GroupBox *group_{ nullptr };
 
+    CBrush bkbrush_;
     bool hover_{ false };
     bool press_{ false };
     bool check_{ false };
+public:
 };
 
 class PushButton : public Button 

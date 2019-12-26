@@ -91,7 +91,6 @@ void CCtrlDlg::initBtn()
 
     testChkbox_.setCheck();
     testChkbox_.setParent(this);
-    testCheckBox_.setParent(this);
 }
 
 

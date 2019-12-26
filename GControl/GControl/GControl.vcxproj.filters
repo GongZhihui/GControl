@@ -101,10 +101,10 @@
     <ClCompile Include="GControl\ggroupbox.cpp">
       <Filter>GControl</Filter>
     </ClCompile>
-    <ClCompile Include="GControl\gstaticl.cpp">
+    <ClCompile Include="GControl\gbutton.cpp">
       <Filter>GControl</Filter>
     </ClCompile>
-    <ClCompile Include="GControl\gbutton.cpp">
+    <ClCompile Include="GControl\gstatic.cpp">
       <Filter>GControl</Filter>
     </ClCompile>
   </ItemGroup>

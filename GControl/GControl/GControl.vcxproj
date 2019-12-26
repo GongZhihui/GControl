@@ -212,7 +212,7 @@
     <ClCompile Include="GControlDlg.cpp" />
     <ClCompile Include="GControl\basic.cpp" />
     <ClCompile Include="GControl\gbutton.cpp" />
-    <ClCompile Include="GControl\gstaticl.cpp" />
+    <ClCompile Include="GControl\gstatic.cpp" />
     <ClCompile Include="GControl\gctrlhelper.cpp" />
     <ClCompile Include="GControl\gdialog.cpp" />
     <ClCompile Include="GControl\gcombobox.cpp" />

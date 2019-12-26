@@ -30,7 +30,6 @@ BEGIN_MESSAGE_MAP(Button, CButton)
     ON_WM_SETCURSOR()
     ON_WM_LBUTTONDOWN()
     ON_WM_LBUTTONUP()
-    //ON_WM_PAINT()
 END_MESSAGE_MAP()
 
 Button::Button(CWnd &parent)
@@ -40,12 +39,15 @@ Button::Button(CWnd &parent)
 
 HBRUSH Button::CtlColor(CDC *dc, UINT col)
 {
-    CRect rc;
-    GetWindowRect(&rc);
-    ScreenToClient(&rc);
-    CDC* pdc = parent_->GetDC();
-    dc->BitBlt(0, 0, rc.Width(), rc.Height(), pdc, rc.left, rc.top, SRCCOPY);
-    parent_->ReleaseDC(pdc);
+    if (btnType_ == BtnType::ButtonEx)
+    {
+        CRect rc;
+        GetWindowRect(&rc);
+        parent_->ScreenToClient(&rc);
+        CDC* pdc = parent_->GetDC();
+        dc->BitBlt(0, 0, rc.Width(), rc.Height(), pdc, rc.left, rc.top, SRCCOPY);
+        parent_->ReleaseDC(pdc);
+    }
     return (HBRUSH)::GetStockObject(NULL_BRUSH);
 }
 
@@ -89,6 +91,9 @@ void Button::DrawItem(LPDRAWITEMSTRUCT lps)
 {
     CDC *dc = CDC::FromHandle(lps->hDC);
     CRect rect = lps->rcItem;
+    dc->SetBkMode(TRANSPARENT);
+    CRect winRect;
+    GetWindowRect(winRect);
 
     auto drawBtn = [&]()
     {
@@ -108,6 +113,7 @@ void Button::DrawItem(LPDRAWITEMSTRUCT lps)
         if (btnType_ == BtnType::Radio)
         {
             gh.SetSmoothingMode(Gdiplus::SmoothingModeAntiAlias);
+            gh.FillEllipse(&Gdiplus::SolidBrush({ 255,255,255 }), rc);
             gh.DrawEllipse(&pen, rc);
             if (check_) 
             {
@@ -115,13 +121,13 @@ void Button::DrawItem(LPDRAWITEMSTRUCT lps)
                 rc.Y += 3;
                 rc.Width = rc.Width - 6;
                 rc.Height = rc.Width;
-                Gdiplus::SolidBrush brush(color);
                 gh.SetSmoothingMode(Gdiplus::SmoothingModeAntiAlias);
-                gh.FillEllipse(&brush, rc);
+                gh.FillEllipse(&Gdiplus::SolidBrush(color), rc);
             }
         }
         else if(btnType_ == BtnType::CheckBox)
         {
+            gh.FillRectangle(&Gdiplus::SolidBrush({ 255,255,255 }), rc);
             gh.DrawRectangle(&pen, rc);
             if (check_) 
             {
@@ -184,25 +190,11 @@ void Button::DrawItem(LPDRAWITEMSTRUCT lps)
     }
     else if (btnType_ == BtnType::Radio)
     {
-        if (parent_)
-        {
-            auto parentDc = parent_->GetDC();
-            dc->BitBlt(0, 0, rect.Width(), rect.Height(), parentDc, rect.left, rect.top, SRCCOPY);
-            parent_->ReleaseDC(parentDc);
-        }
-        
         drawBtn();
         drawText();
     }
     else if(btnType_ == BtnType::CheckBox)
     {
-        if (parent_)
-        {
-            auto parentDc = parent_->GetDC();
-            dc->BitBlt(0, 0, rect.Width(), rect.Height(), parentDc, rect.left, rect.top, SRCCOPY);
-            parent_->ReleaseDC(parentDc);
-        }
-
         drawBtn();
         drawText();
     }
@@ -290,11 +282,12 @@ BOOL Button::OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message)
         ::SetCursor(::LoadCursor(NULL, IDC_ARROW));
 
     return TRUE;
-    return CButton::OnSetCursor(pWnd, nHitTest, message);
 }
 
 void Button::PreSubclassWindow()
 {
+    bkbrush_.CreateSolidBrush(RGB(255,0,0));
+
     if(btnType_ != BtnType::ButtonEx)
         ModifyStyle(0, BS_OWNERDRAW, SWP_FRAMECHANGED);
     CButton::PreSubclassWindow();
@@ -381,6 +374,7 @@ ButtonEx::ButtonEx(CWnd & parent)
 }
 
 } // !namespace GCtrl
+
 
 
 

@@ -18,6 +18,7 @@
 #pragma once
 #include "stdafx.h"
 #include "ggroupbox.h"
+#include <functional>
 
 namespace GCtrl 
 {
@@ -35,6 +36,9 @@ namespace GCtrl
 class Button : public CButton
 {
 public:
+    // 点击事件
+    using ClickedEvent = std::function<void(bool)>;
+
     enum class BtnType
     {
         PushButton,
@@ -51,11 +55,16 @@ public:
 
     void setSize(const CRect &rect);
     void setSize(int width, int height);
+    void setSize(const CSize &size);
+
     void setBitmap(int normalBmpID, int hoverBmpID = -1, int pressedBmpID = -1);
+    CSize getBitmapSize();
     void setCheck(bool check = true);
     bool getCheck();
     void setParent(CWnd *parent);
     void setGroup(GroupBox *group);
+
+    void setClickedEvent(ClickedEvent &&clicked);
 
 private:
     void DrawItem(LPDRAWITEMSTRUCT lps);
@@ -68,9 +77,11 @@ private:
     afx_msg BOOL OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message);
     afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
     afx_msg void OnLButtonUp(UINT nFlags, CPoint point);
+    afx_msg void OnBnClicked();
     DECLARE_MESSAGE_MAP()
 
 protected:
+    ClickedEvent clickedEvent_;
     BtnType btnType_{ BtnType::PushButton };
     CBitmap hoverbmp_;
     CBitmap normalbmp_;
@@ -86,7 +97,6 @@ protected:
     bool hover_{ false };
     bool press_{ false };
     bool check_{ false };
-public:
 };
 
 class PushButton : public Button 

@@ -17,6 +17,7 @@
 
 #include "stdafx.h"
 #include "gdialog.h"
+#include "Resource.h"
 
 namespace GCtrl 
 {
@@ -80,7 +81,7 @@ DLGTEMPLATE* DialogTemplate::create(DWORD style, CRect& rect, DWORD styleEx)
 }
 BOOL Dialog::OnInitDialog()
 {
-    CDialogEx::OnInitDialog();
+    CDialog::OnInitDialog();
     SetWindowText("dialog");
     return TRUE;
 }
@@ -107,15 +108,15 @@ Dialog::~Dialog()
 BOOL Dialog::createModal(CRect rect, CWnd* parent)
 {
     auto rc = rect == BadRect ? InitRect : rect;
-    auto temp = dialogTemplate_.create(WS_VISIBLE | WS_POPUP | WS_SYSMENU | WS_CLIPSIBLINGS, rc);
-    return CDialogEx::InitModalIndirect(temp, parent);;
+    auto temp = dialogTemplate_.create(WS_VISIBLE | WS_POPUP, rc);
+    return CDialog::InitModalIndirect(temp, parent);
 }
 
 BOOL Dialog::create(CRect rect, CWnd* parent)
 {
     auto rc = rect == BadRect ? InitRect : rect;
     auto temp = dialogTemplate_.create(WS_VISIBLE | WS_POPUP | WS_SYSMENU | WS_CLIPSIBLINGS, rc);
-    return CDialogEx::CreateIndirect(temp, parent);;
+    return CDialog::CreateIndirect(temp, parent);;
 }
 
 void Dialog::setWindowRect(const CRect & rect)
@@ -123,5 +124,110 @@ void Dialog::setWindowRect(const CRect & rect)
     windowRect_ = rect;
 }
 
+//------------------------------------------------------
 
+int MsgBox::okID_ = -1;
+int MsgBox::closeID_ = -1;
+int MsgBox::bkID_ = -1;
+CRect MsgBox::initRect = { 0,0,330,192 };
+
+MsgBox::MsgBox()
+{
+}
+
+void MsgBox::init(int bkbmp, int okbmp, int closebmp, const CRect &rect)
+{
+    okID_ = okbmp;
+    closeID_ = closebmp;
+    bkID_ = bkbmp;
+    initRect = rect;
+}
+
+int MsgBox::info(const CString text, const CString title)
+{
+    MsgBox dlg;
+    dlg.setData(text, title);
+    dlg.createModal(initRect);
+    return dlg.DoModal();
+}
+
+void MsgBox::setData(const CString text, const CString title)
+{
+    title_ = title;
+    text_ = text;
+    auto size = text.GetLength();
+    if (size <= 32)
+        textStc_.setTextAlign(GCtrl::Static::TextAlign::Center);
+}
+
+void MsgBox::setBmp(int bk, int close, int ok)
+{
+    okID_ = ok;
+    closeID_ = close;
+    bkID_ = bk;
+}
+
+BOOL MsgBox::OnInitDialog()
+{
+    Dialog::OnInitDialog();
+
+    auto ret = bkStc_.Create("", WS_CHILD | WS_VISIBLE | SS_CENTER | SS_BITMAP, { 0,0, 0, 0 }, this, 0);
+    ret = okBtn_.Create("", WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON, { 135, 143, 135 + 62, 143 + 27}, this, 1);
+    ret = closeBtn_.Create("", WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON, { 309, 6, 309 + 12, 6 + 15 }, this, 2);
+    ret = titleStc_.Create("", WS_CHILD | WS_VISIBLE, { 9, 4, 9 + 105, 4 +  24}, this, 3);
+    ret = textStc_.Create("", WS_CHILD | WS_VISIBLE, { 31, 69, 31 + 270, 69 + 59 }, this, 4);
+    
+    initFont();
+    initBK();
+    initCtrl();
+    initData();
+
+    return TRUE;
+}
+
+void MsgBox::initFont()
+{
+    titleFont_.CreateFont(22, 0, 0, 0, FW_NORMAL, FALSE, FALSE, 0,
+        ANSI_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS,
+        DEFAULT_QUALITY, DEFAULT_PITCH | FF_SWISS, "微软雅黑");
+
+    textFont_.CreateFont(22, 0, 0, 0, FW_NORMAL, FALSE, FALSE, 0,
+        ANSI_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS,
+        DEFAULT_QUALITY, DEFAULT_PITCH | FF_SWISS, "微软雅黑");
+    
+    textFont_small.CreateFont(20, 0, 0, 0, FW_NORMAL, FALSE, FALSE, 0,
+        ANSI_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS,
+        DEFAULT_QUALITY, DEFAULT_PITCH | FF_SWISS, "微软雅黑");
+}
+
+void MsgBox::initBK()
+{
+    bkbmp_.LoadBitmapA(bkID_);
+    bkStc_.ModifyStyle(0xF, SS_BITMAP | SS_REALSIZECONTROL);
+
+    bkStc_.SetBitmap(bkbmp_);
+    CRect rect;
+    GetClientRect(rect);
+    bkStc_.MoveWindow(rect);
+}
+
+void MsgBox::initData()
+{
+    titleStc_.SetWindowTextA(title_);
+    titleStc_.SetFont(&titleFont_);
+    titleStc_.setTextColor(RGB(255, 255, 255));
+    textStc_.SetWindowTextA(text_);
+    if (text_.GetLength() >= 64)
+        textStc_.SetFont(&textFont_small);
+    else
+        textStc_.SetFont(&textFont_);
+}
+
+void MsgBox::initCtrl()
+{
+    okBtn_.setBitmap(okID_);
+    okBtn_.setClickedEvent([&](bool) {OnOK(); });
+    closeBtn_.setBitmap(closeID_);
+    closeBtn_.setClickedEvent([&](bool) {OnCancel(); });
+}
 } //!namespace GCtrl

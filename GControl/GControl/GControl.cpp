@@ -59,6 +59,8 @@ BOOL CGControlApp::InitInstance()
     Gdiplus::GdiplusStartupInput gdiplusStartupInput;
     Gdiplus::GdiplusStartup(&gdiplusToken, &gdiplusStartupInput, NULL);
 
+    GCtrl::MsgBox::init(IDB_BITMAP_MSG_BK, IDB_BITMAP_MSG_OK, IDB_BITMAP_MSG_CLOSE);
+    GCtrl::MsgBox::info("这是一个提示应用程序向导生成的本地应用程序应用程");
     CCtrlDlg cdlg;
     cdlg.DoModal();
 

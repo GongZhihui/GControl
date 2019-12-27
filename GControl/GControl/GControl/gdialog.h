@@ -17,6 +17,7 @@
 
 #pragma once
 #include "stdafx.h"
+#include "gbutton.h"
 
 namespace GCtrl 
 {
@@ -35,8 +36,7 @@ private:
     WORD* buffer_;
 };
 
-
-class Dialog : public CDialogEx
+class Dialog : public CDialog
 {
 public:
     Dialog();
@@ -58,6 +58,50 @@ protected:
     static CRect BadRect;
     static CRect InitRect;
     CRect windowRect_;
+};
+
+class MsgBox : public Dialog 
+{
+public:
+    MsgBox();
+
+public:
+    static void init(int bkbmp, int okbmp, int closebmp, const CRect &rect = initRect);
+    static int info(const CString text, const CString title = "提示");
+
+private:
+    virtual BOOL OnInitDialog();
+    void setData(const CString text, const CString title);
+    void setBmp(int bk, int close, int ok);
+    void initFont();
+    void initBK();
+    void initData();
+    void initCtrl();
+
+private:
+    static int okID_;
+    static int closeID_;
+    static int bkID_;
+    static CRect initRect;
+
+    PushButton okBtn_{ *this };
+    PushButton closeBtn_{ *this };
+
+    CDateTimeCtrl timeCtrl_;
+    CEdit edit_;
+
+    Static titleStc_;
+    Static textStc_;
+    Static bkStc_;
+
+    CBitmap bkbmp_;
+
+    CFont titleFont_;
+    CFont textFont_;
+    CFont textFont_small;
+
+    CString title_;
+    CString text_;
 };
 
 }

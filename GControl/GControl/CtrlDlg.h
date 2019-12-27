@@ -22,6 +22,8 @@ protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV 支持
 
 	DECLARE_MESSAGE_MAP()
+    afx_msg void OnBnClickedButtonTest();
+    afx_msg void OnBnClickedButton1();
 
     virtual BOOL OnInitDialog();
     void initBK();
@@ -41,8 +43,6 @@ public:
     GCtrl::RadioButton testRiobtn2_{ *this };
     GCtrl::RadioButton testRiobtn3_{ *this };
     GCtrl::CheckBox testChkbox_{ *this };
-    afx_msg void OnBnClickedButtonTest();
-    afx_msg void OnBnClickedButton1();
     CDateTimeCtrl dtc_;
     GCtrl::ButtonEx testCheckBox_{ *this };
 };

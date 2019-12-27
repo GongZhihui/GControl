@@ -34,12 +34,17 @@ public:
     virtual void setFont(CFont &font);
     virtual void setFont(LOGFONT &lf);
 
+    void setBKColor(COLORREF color);
+    void setTextColor(COLORREF color);
+
     // 谨慎使用这个，最好只在子类化该控件时用这个
     // 其他时候，请重新创建个font
     CFont& getFont();
 
 protected:
     CFont font_;
+    COLORREF bkcolor_{ BadColor };
+    COLORREF textcolor_{ BadColor };
 };
 
 } //!GCtrl

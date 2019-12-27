@@ -30,6 +30,7 @@ BEGIN_MESSAGE_MAP(Button, CButton)
     ON_WM_SETCURSOR()
     ON_WM_LBUTTONDOWN()
     ON_WM_LBUTTONUP()
+    ON_CONTROL_REFLECT(BN_CLICKED, &Button::OnBnClicked)
 END_MESSAGE_MAP()
 
 Button::Button(CWnd &parent)
@@ -39,17 +40,16 @@ Button::Button(CWnd &parent)
 
 HBRUSH Button::CtlColor(CDC *dc, UINT col)
 {
-    CRect rc;
-    auto pdc = parent_->GetDC();
+    CRect rc, cli;
+    CClientDC pdc(parent_);
     GetWindowRect(rc);
+    cli = rc;
     parent_->ScreenToClient(&rc);
-    auto color = pdc->GetPixel(rc.left + rc.Width() / 2, rc.top + rc.Height() / 2);
+    auto color = pdc.GetPixel(rc.left + rc.Width() / 2, rc.top + rc.Height() / 2);
     bkcolor_ = bkcolor_ == BadColor ? color : bkcolor_;
-    if (!bkbrush_.m_hObject)
-    {
-        bkbrush_.CreateSolidBrush(bkcolor_);
-    }
-    return bkbrush_;
+    ScreenToClient(&cli);
+    dc->FillSolidRect(cli, bkcolor_);
+    return (HBRUSH)::GetStockObject(NULL_BRUSH);
 }
 
 Button::Button(BtnType type, CWnd &parent)
@@ -86,6 +86,12 @@ void Button::OnMouseLeave()
     CButton::OnMouseLeave();
     hover_ = false;
     Invalidate();
+}
+
+void GCtrl::Button::OnBnClicked()
+{
+    if (clickedEvent_)
+        clickedEvent_(check_);
 }
 
 void Button::DrawItem(LPDRAWITEMSTRUCT lps)
@@ -293,17 +299,22 @@ void Button::PreSubclassWindow()
 
 void Button::setSize(const CRect & rect)
 {
-    CRect rc;
-    GetWindowRect(rc);
-    rc.right = rc.left + rect.Width();
-    rc.bottom = rc.top + rect.Height();
-    MoveWindow(rc);
-   
+    setSize(rect.Width(), rect.Height());
+}
+
+void Button::setSize(const CSize & size)
+{
+    setSize(size.cx, size.cy);
 }
 
 void Button::setSize(int width, int height)
 {
-    setSize({ 0,0,width, height });
+    CRect rc;
+    GetWindowRect(rc);
+    int left = rc.left + rc.Width() / 2 - width / 2;
+    int top = rc.top + rc.Height() / 2 - height / 2;
+    MoveWindow(left, top, width, height);
+
 }
 
 void Button::setBitmap(int normalBmpID, int hoverBmpID, int pressedBmpID)
@@ -321,8 +332,23 @@ void Button::setBitmap(int normalBmpID, int hoverBmpID, int pressedBmpID)
     {
         hoverbmp_.LoadBitmap(normalBmpID);
         pressedbmp_.LoadBitmap(normalBmpID);
-        pressedbmp_.LoadBitmap(normalBmpID);
     }
+
+    setSize(getBitmapSize());
+}
+
+CSize Button::getBitmapSize()
+{
+    CSize size;
+    if (normalbmp_.m_hObject) 
+    {
+        BITMAP bmp;
+        normalbmp_.GetBitmap(&bmp);
+        size.cx = bmp.bmWidth;
+        size.cy = bmp.bmHeight;
+    }
+
+    return size;
 }
 
 void Button::setCheck(bool check)
@@ -346,7 +372,10 @@ void Button::setGroup(GroupBox * group)
     group_->push_back(this);
 }
 
-
+void Button::setClickedEvent(ClickedEvent &&clicked)
+{
+    clickedEvent_ = std::move(clicked);
+}
 
 PushButton::PushButton(CWnd &parent)
     : Button{ BtnType::PushButton, parent}
@@ -363,16 +392,9 @@ CheckBox::CheckBox(CWnd &parent)
 {
 }
 
-
-
-
 ButtonEx::ButtonEx(CWnd & parent)
     : Button{ BtnType::ButtonEx, parent }
 {
 }
 
 } // !namespace GCtrl
-
-
-
-

@@ -242,6 +242,9 @@
     <Image Include="res\kpsz_hover_press.bmp" />
     <Image Include="res\kpsz_press.bmp" />
     <Image Include="res\messagebox.bmp" />
+    <Image Include="res\msgbox\msg_bk.bmp" />
+    <Image Include="res\msgbox\msg_close.bmp" />
+    <Image Include="res\msgbox\msg_ok.bmp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -43,6 +43,16 @@ void Basic::setFont(LOGFONT & lf)
     font_.CreateFontIndirect(&lf);
 }
 
+void Basic::setBKColor(COLORREF color)
+{
+    bkcolor_ = color;
+}
+
+void Basic::setTextColor(COLORREF color)
+{
+    textcolor_ = color;
+}
+
 CFont & Basic::getFont()
 {
     return font_;

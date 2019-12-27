@@ -18,17 +18,30 @@
 #pragma once
 #include "basic.h"
 
-namespace GCtrl 
+namespace GCtrl
 {
 
-class Static 
+class Static
     : public CStatic
     , public Basic
 {
 public:
+    enum class TextAlign
+    {
+        Left,
+        Center,
+        Right
+    };
+
     Static();
+    void setTextAlign(TextAlign align);
+  
+private:
     DECLARE_MESSAGE_MAP()
     afx_msg HBRUSH CtlColor(CDC* pDC, UINT nCtlColor);
+    void PreSubclassWindow();
+protected:
+    TextAlign textAlign_{ TextAlign::Left };
 };
 
 } // !namespace GCtrl

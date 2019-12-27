@@ -52,7 +52,6 @@ END_MESSAGE_MAP()
 BOOL CCtrlDlg::OnInitDialog()
 {
     __super::OnInitDialog();
-
     initBK();
     initGroupBox();
     initBtn();
@@ -91,6 +90,8 @@ void CCtrlDlg::initBtn()
 
     testChkbox_.setCheck();
     testChkbox_.setParent(this);
+
+    tipStc_.setTextColor(RGB(255,0,0));
 }
 
 

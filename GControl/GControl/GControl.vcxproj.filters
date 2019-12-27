@@ -146,5 +146,14 @@
     <Image Include="res\kpsz_press.bmp">
       <Filter>资源文件</Filter>
     </Image>
+    <Image Include="res\msgbox\msg_bk.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\msgbox\msg_close.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\msgbox\msg_ok.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
   </ItemGroup>
 </Project>

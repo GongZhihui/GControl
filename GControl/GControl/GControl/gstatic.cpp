@@ -18,11 +18,16 @@
 #include "stdafx.h"
 #include "gstatic.h"
 
-namespace GCtrl 
+namespace GCtrl
 {
 
 Static::Static()
 {
+}
+
+void Static::setTextAlign(TextAlign align)
+{
+    textAlign_ = align;
 }
 
 BEGIN_MESSAGE_MAP(Static, CStatic)
@@ -33,7 +38,22 @@ END_MESSAGE_MAP()
 HBRUSH Static::CtlColor(CDC* pDC, UINT nCtlColor)
 {
     pDC->SetBkMode(TRANSPARENT);
+    if (textcolor_ != BadColor)
+        pDC->SetTextColor(textcolor_);
     return (HBRUSH)::GetStockObject(NULL_BRUSH);
+}
+
+void Static::PreSubclassWindow()
+{
+    auto style = GetStyle();
+    if (textAlign_ == TextAlign::Left)
+        ModifyStyle(SS_CENTER | SS_RIGHT, SS_LEFT);
+    else if (textAlign_ == TextAlign::Center)
+        ModifyStyle(SS_LEFT | SS_RIGHT, SS_CENTER);
+    else if (textAlign_ == TextAlign::Right)
+        ModifyStyle(SS_CENTER | SS_LEFT, SS_RIGHT);
+
+    CStatic::PreSubclassWindow();
 }
 
 } // !namespace GCtrl

@@ -63,16 +63,11 @@ void Edit::OnNcPaint()
 
 HBRUSH Edit::CtlColor(CDC * dc, UINT color)
 {
-    if (color == CTLCOLOR_EDIT)
-    {
-        if (!bkbrush_.m_hObject)
-            bkbrush_.CreateSolidBrush(bkcolor_);
-        dc->SetTextColor(textcolor_);
-        dc->SetBkMode(TRANSPARENT);
-        return bkbrush_;
-    }
-    return (HBRUSH)::GetStockObject(NULL_BRUSH);
+    if (!bkbrush_.m_hObject)
+        bkbrush_.CreateSolidBrush(bkcolor_);
+    dc->SetTextColor(textcolor_);
+    dc->SetBkMode(TRANSPARENT);
+    return bkbrush_;
 }
 
-
-}
+} // !namespace GCtrl

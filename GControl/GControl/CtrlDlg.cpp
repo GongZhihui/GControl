@@ -97,6 +97,7 @@ void CCtrlDlg::initBtn()
     testEdit_.setTextColor(RGB(0,0,0));
     testEdit_.setBKColor(RGB(255,0,0));
     testEdit_.setBorderColor(RGB(255,0,0));
+    testEdit_.SetWindowTextA("这是一个编辑框");
 }
 
 

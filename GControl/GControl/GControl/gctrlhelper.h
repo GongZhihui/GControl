@@ -29,8 +29,9 @@ public:
     CtrlHelper();
     ~CtrlHelper();
     
-    void initFont(CFont & font, int size = 22, const char * faceName = "微软雅黑");
-    void initBK(CWnd * wnd, CBitmap &bkbmp, int ctrlID, int imageID, bool main = true);
+    static void initFont(CFont & font, int size = 22, const char * faceName = "微软雅黑");
+    static void initBK(CWnd * wnd, CBitmap &bkbmp, int ctrlID, int imageID, bool main = true);
+    static void refreshControl(CWnd *self, CWnd *ctrl);
     //void initBtn(CButtonST & btn, int hoverBtnImageID, int btnImageID);
 };
 

@@ -50,6 +50,14 @@ void CtrlHelper::initBK(CWnd * wnd, CBitmap &bkbmp, int ctrlID, int imageID, boo
     }
 }
 
+void CtrlHelper::refreshControl(CWnd * self, CWnd * ctrl)
+{
+    CRect rect;
+    ctrl->GetWindowRect(rect);
+    self->ScreenToClient(rect);
+    self->InvalidateRect(rect);
+}
+
 //void CtrlHelper::initBtn(CButtonST & btn, int hoverBtnImageID, int btnImageID)
 //{
 //    btn.SetBitmaps(hoverBtnImageID, RGB(255, 0, 255), btnImageID, RGB(255, 0, 255));

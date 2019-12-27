@@ -311,6 +311,7 @@ void Button::setSize(int width, int height)
 {
     CRect rc;
     GetWindowRect(rc);
+    parent_->ScreenToClient(rc);
     int left = rc.left + rc.Width() / 2 - width / 2;
     int top = rc.top + rc.Height() / 2 - height / 2;
     MoveWindow(left, top, width, height);

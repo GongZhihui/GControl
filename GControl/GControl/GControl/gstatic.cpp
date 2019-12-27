@@ -47,11 +47,11 @@ void Static::PreSubclassWindow()
 {
     auto style = GetStyle();
     if (textAlign_ == TextAlign::Left)
-        ModifyStyle(SS_CENTER | SS_RIGHT, SS_LEFT);
+        ModifyStyle(SS_CENTER | SS_RIGHT, style | SS_LEFT);
     else if (textAlign_ == TextAlign::Center)
-        ModifyStyle(SS_LEFT | SS_RIGHT, SS_CENTER);
+        ModifyStyle(SS_LEFT | SS_RIGHT, style | SS_CENTER);
     else if (textAlign_ == TextAlign::Right)
-        ModifyStyle(SS_CENTER | SS_LEFT, SS_RIGHT);
+        ModifyStyle(SS_CENTER | SS_LEFT, style | SS_RIGHT);
 
     CStatic::PreSubclassWindow();
 }

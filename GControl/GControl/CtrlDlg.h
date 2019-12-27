@@ -45,4 +45,6 @@ public:
     GCtrl::CheckBox testChkbox_{ *this };
     CDateTimeCtrl dtc_;
     GCtrl::ButtonEx testCheckBox_{ *this };
+    GCtrl::Edit testEdit_;
+    afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
 };

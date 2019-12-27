@@ -143,12 +143,24 @@ void MsgBox::init(int bkbmp, int okbmp, int closebmp, const CRect &rect)
     initRect = rect;
 }
 
-int MsgBox::info(const CString text, const CString title)
+int MsgBox::info(CWnd *parent, const CString text, const CString title)
 {
     MsgBox dlg;
+    if(parent && parent->m_hWnd)
+        dlg.SetParent(parent);
     dlg.setData(text, title);
     dlg.createModal(initRect);
     return dlg.DoModal();
+}
+
+int MsgBox::info(HWND parent, const CString text, const CString title)
+{
+    return info(CWnd::FromHandle(parent), text, title);
+}
+
+int MsgBox::info(const CString text, const CString title)
+{
+    return info(CWnd{}, text, title);
 }
 
 void MsgBox::setData(const CString text, const CString title)

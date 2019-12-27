@@ -68,6 +68,8 @@ public:
 public:
     static void init(int bkbmp, int okbmp, int closebmp, const CRect &rect = initRect);
     static int info(const CString text, const CString title = "提示");
+    static int info(CWnd *parent, const CString text, const CString title = "提示");
+    static int info(HWND parent, const CString text, const CString title = "提示");
 
 private:
     virtual BOOL OnInitDialog();

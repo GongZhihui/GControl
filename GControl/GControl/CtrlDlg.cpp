@@ -37,12 +37,14 @@ void CCtrlDlg::DoDataExchange(CDataExchange* pDX)
     DDX_Control(pDX, IDC_RADIO_TEST3, testRiobtn3_);
     DDX_Control(pDX, IDC_DATETIMEPICKER, dtc_);
     DDX_Control(pDX, IDC_CHECK_TEST2, testCheckBox_);
+    DDX_Control(pDX, IDC_EDIT_TEST_T, testEdit_);
 }
 
 
 BEGIN_MESSAGE_MAP(CCtrlDlg, CDialogEx)
     ON_BN_CLICKED(IDC_BUTTON_TEST, &CCtrlDlg::OnBnClickedButtonTest)
     ON_BN_CLICKED(IDC_BUTTON1, &CCtrlDlg::OnBnClickedButton1)
+    ON_WM_CTLCOLOR()
 END_MESSAGE_MAP()
 
 
@@ -92,6 +94,9 @@ void CCtrlDlg::initBtn()
     testChkbox_.setParent(this);
 
     tipStc_.setTextColor(RGB(255,0,0));
+    testEdit_.setTextColor(RGB(0,0,0));
+    testEdit_.setBKColor(RGB(255,0,0));
+    testEdit_.setBorderColor(RGB(255,0,0));
 }
 
 
@@ -109,4 +114,22 @@ void CCtrlDlg::OnBnClickedButtonTest()
 void CCtrlDlg::OnBnClickedButton1()
 {
     OnOK();
+}
+
+
+HBRUSH CCtrlDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
+{
+    HBRUSH hbr = __super::OnCtlColor(pDC, pWnd, nCtlColor);
+
+    /*if (pWnd->GetDlgCtrlID() == IDC_EDIT_TEST_T && (nCtlColor == CTLCOLOR_EDIT))
+    {
+        static CBrush brush;
+        if(!brush.m_hObject)
+            brush.CreateSolidBrush(RGB(255,0,0));
+        pDC->SetTextColor(RGB(0, 0, 0));
+        pDC->SetBkMode(TRANSPARENT);
+
+        return brush;
+    }*/
+    return hbr;
 }

@@ -23,10 +23,13 @@ namespace GCtrl
 
 BEGIN_MESSAGE_MAP(Edit, CEdit)
     ON_WM_NCPAINT()
+    ON_WM_CTLCOLOR_REFLECT()
 END_MESSAGE_MAP()
 
 Edit::Edit()
 {
+    textcolor_ = { RGB(0,0,0) };
+    bkcolor_ = { RGB(255,255,255) };
 }
 Edit::~Edit()
 {
@@ -56,6 +59,19 @@ void Edit::OnNcPaint()
     pen.CreatePen(PS_SOLID, 1, borderClr_);
     dc.SelectObject(pen);
     dc.RoundRect(rect, arcPoint_);
+}
+
+HBRUSH Edit::CtlColor(CDC * dc, UINT color)
+{
+    if (color == CTLCOLOR_EDIT)
+    {
+        if (!bkbrush_.m_hObject)
+            bkbrush_.CreateSolidBrush(bkcolor_);
+        dc->SetTextColor(textcolor_);
+        dc->SetBkMode(TRANSPARENT);
+        return bkbrush_;
+    }
+    return (HBRUSH)::GetStockObject(NULL_BRUSH);
 }
 
 

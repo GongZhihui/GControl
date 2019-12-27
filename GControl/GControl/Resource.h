@@ -37,6 +37,8 @@
 #define IDC_BUTTON1                     1024
 #define IDC_DATETIMEPICKER              1025
 #define IDC_CHECK1                      1026
+#define IDC_EDIT1                       1027
+#define IDC_EDIT_TEST_T                 1027
 
 // Next default values for new objects
 // 
@@ -44,7 +46,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        144
 #define _APS_NEXT_COMMAND_VALUE         32771
-#define _APS_NEXT_CONTROL_VALUE         1027
+#define _APS_NEXT_CONTROL_VALUE         1028
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif

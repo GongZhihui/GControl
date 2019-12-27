@@ -157,10 +157,19 @@ void ComboBox::DrawPicture(CDC* pDC, CRect rect)
         int bottomy = centery + 3;
 
         Gdiplus::Graphics gh(pDC->m_hDC);
+        //Gdiplus::Pen pen({96, 96, 96}, 1.55);
         Gdiplus::Pen pen({130, 135, 144}, 1.55);
         gh.SetSmoothingMode(Gdiplus::SmoothingModeAntiAlias);
         gh.DrawLine(&pen, leftx, lefty, bottomx, bottomy);
         gh.DrawLine(&pen, bottomx, bottomy, rightx, righty);
+        /*CPen pen, *oldPen;
+        pen.CreatePen(PS_SOLID, 2, btnClr_);
+        oldPen = pDC->SelectObject(&pen);
+        pDC->MoveTo(leftx, lefty);
+        pDC->LineTo(bottomx, bottomy);
+        pDC->MoveTo(bottomx, bottomy);
+        pDC->LineTo(rightx, righty);
+        pDC->SelectObject(oldPen);*/
     }
     else
     {

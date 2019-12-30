@@ -15,37 +15,9 @@
 */
 //==============================================================================
 
-#pragma once
 #include "stdafx.h"
-#include "basic.h"
+#include "rect.h"
 
-namespace GCtrl 
+namespace GCtrl
 {
-
-class Edit 
-    : public CEdit
-    , public Basic
-{
-public:
-    Edit(CWnd &parent);
-    ~Edit();
-
-    BOOL create(int id, IRect rect, int style = WS_CHILD | WS_VISIBLE | WS_BORDER);
-
-    // 设置边框颜色
-    void setBorderColor(COLORREF color);
-    // 设置圆角
-    void setRoundPoint(CPoint point = {0,0});
-    
-private:
-    DECLARE_MESSAGE_MAP()
-    afx_msg void OnNcPaint();
-    HBRUSH CtlColor(CDC *dc, UINT color);
-
-private:
-    COLORREF borderClr_{ RGB(195, 215, 220) };
-    CPoint arcPoint_{ 0,0 };
-    CBrush bkbrush_;
-};
-
-}
+} // !namespace GCtrl

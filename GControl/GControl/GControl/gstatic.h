@@ -34,6 +34,8 @@ public:
     };
 
     Static(CWnd &parent);
+    BOOL create(int id, IRect rect, const char *text, int style = WS_CHILD | WS_VISIBLE);
+
     void setTextAlign(TextAlign align);
   
 private:

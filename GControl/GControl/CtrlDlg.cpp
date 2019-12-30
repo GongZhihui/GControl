@@ -57,6 +57,7 @@ BOOL CCtrlDlg::OnInitDialog()
     initBK();
     initGroupBox();
     initBtn();
+    createCtrl();
 
     return TRUE;  
 }
@@ -98,6 +99,31 @@ void CCtrlDlg::initBtn()
     testEdit_.setBKColor(RGB(255,0,0));
     testEdit_.setBorderColor(RGB(255,0,0));*/
     testEdit_.SetWindowTextA("这是一个编辑框");
+}
+
+void CCtrlDlg::createCtrl()
+{
+    createEdit.create(1, {20, 300, 150, 20});
+    createStatic.create(2, {20, 340, 150, 20}, "这是一个create出来的");
+    createGroupBox.create(3, { 20, 380, 150, 150 }, "手机品牌");
+    createCombo.createDropDown(4, {200, 300, 150, 150});
+    createCombo.InsertString(0, "oppo");
+    createCombo.InsertString(1, "vivo");
+    createCombo.InsertString(2, "meizu");
+    createCombo.InsertString(2, "欧珀");
+    createCombo.InsertString(2, "华为");
+    createCombo.SetCurSel(0);
+    createCombo.setItemSelectedColor(RGB(255, 0, 0));
+    CFont f;
+    LOGFONT lf = { 0 };
+    lf.lfHeight = 24;
+    strcpy_s(lf.lfFaceName, "微软雅黑");
+    f.CreateFontIndirectA(&lf);
+    createCombo.setFont(f);
+    createCombo.setHeight(22);
+    createCombo.setItemHeight(30);
+
+
 }
 
 

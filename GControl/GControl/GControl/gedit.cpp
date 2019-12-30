@@ -35,6 +35,14 @@ Edit::Edit(CWnd &parent)
 Edit::~Edit()
 {
 }
+BOOL Edit::create(int id, IRect rect, int style)
+{
+    auto ret =  CEdit::Create(style, rect, parent_, id);
+    if (ret)
+        SetFont(parent_->GetFont());
+    return ret;
+}
+
 void Edit::setBorderColor(COLORREF color)
 {
     borderClr_ = color;

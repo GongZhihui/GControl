@@ -18,6 +18,7 @@
 #pragma once
 
 #include "gctrlhelper.h"
+#include "rect.h"
 #include "gstatic.h"
 #include "gbutton.h"
 #include "gcombobox.h"

@@ -5,7 +5,7 @@
 #include "stdafx.h"
 #include "GControl.h"
 #include "GControlDlg.h"
-#include "GControl/gdialog.h"
+#include "GControl/gcontrol.h"
 #include "resource.h"
 #include "CtrlDlg.h"
 #include <GdiPlus.h>
@@ -59,8 +59,20 @@ BOOL CGControlApp::InitInstance()
     Gdiplus::GdiplusStartupInput gdiplusStartupInput;
     Gdiplus::GdiplusStartup(&gdiplusToken, &gdiplusStartupInput, NULL);
 
+    auto nnn = static_cast<int>(3.78);
+    auto nnnn = std::round(3.78);
+
+    GCtrl::DRect ret{1.1,2.6,3.7,5.5};
+    auto n = ret.right();
+    auto rect1 = ret.crect();
+    auto rett = [](RECT ret) 
+    {
+        return ret.bottom;
+    };
+    n = rett(ret);
+
     GCtrl::MsgBox::init(IDB_BITMAP_MSG_BK, IDB_BITMAP_MSG_OK, IDB_BITMAP_MSG_CLOSE);
-    GCtrl::MsgBox::info("这是一个提示应用程序向导生成的本地应用程序应用程");
+    GCtrl::MsgBox::info("发票已经开具成功, 无法重新开票, 但数据上传异常, 请联系服务单位进行处理！");
     CCtrlDlg cdlg;
     cdlg.DoModal();
 

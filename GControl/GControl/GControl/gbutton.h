@@ -55,6 +55,9 @@ public:
     Button(BtnType type, CWnd &parent);
     virtual ~Button();
 
+    virtual BOOL create(int id, const IRect &rect, const char *text,
+        int style = WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON);
+
     void setSize(const CRect &rect);
     void setSize(int width, int height);
     void setSize(const CSize &size);
@@ -104,18 +107,22 @@ class PushButton : public Button
 {
 public:
     PushButton(CWnd &parent);
+    BOOL create(int id, const IRect &rect);
 };
 
 class RadioButton : public Button 
 {
 public:
     RadioButton(CWnd &parent);
+    BOOL create(int id, const IRect &rect);
+
 };
 
 class CheckBox : public Button 
 {
 public:
     CheckBox(CWnd &parent);
+    BOOL create(int id, const IRect &rect);
 };
 
 // 系统button，自动背景透明

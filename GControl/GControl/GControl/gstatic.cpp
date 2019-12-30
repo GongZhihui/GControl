@@ -26,6 +26,14 @@ Static::Static(CWnd &parent)
 {
 }
 
+BOOL Static::create(int id, IRect rect, const char * text, int style)
+{
+    auto ret = CStatic::Create(text, style, rect, parent_, id);
+    if (ret)
+        SetFont(parent_->GetFont());
+    return ret;
+}
+
 void Static::setTextAlign(TextAlign align)
 {
     textAlign_ = align;

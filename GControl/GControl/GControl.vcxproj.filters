@@ -66,6 +66,9 @@
     <ClInclude Include="GControl\gbutton.h">
       <Filter>GControl</Filter>
     </ClInclude>
+    <ClInclude Include="GControl\rect.h">
+      <Filter>GControl</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GControl.cpp">
@@ -105,6 +108,9 @@
       <Filter>GControl</Filter>
     </ClCompile>
     <ClCompile Include="GControl\gstatic.cpp">
+      <Filter>GControl</Filter>
+    </ClCompile>
+    <ClCompile Include="GControl\rect.cpp">
       <Filter>GControl</Filter>
     </ClCompile>
   </ItemGroup>

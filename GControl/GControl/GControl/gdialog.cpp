@@ -183,11 +183,11 @@ BOOL MsgBox::OnInitDialog()
 {
     Dialog::OnInitDialog();
 
-    auto ret = bkStc_.Create("", WS_CHILD | WS_VISIBLE | SS_CENTER | SS_BITMAP, { 0,0, 0, 0 }, this, 0);
-    ret = okBtn_.Create("", WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON, { 135, 143, 135 + 62, 143 + 27}, this, 1);
-    ret = closeBtn_.Create("", WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON, { 309, 6, 309 + 12, 6 + 15 }, this, 2);
-    ret = titleStc_.Create("", WS_CHILD | WS_VISIBLE, { 9, 4, 9 + 105, 4 +  24}, this, 3);
-    ret = textStc_.Create("", WS_CHILD | WS_VISIBLE, { 31, 69, 31 + 270, 69 + 59 }, this, 4);
+    bkStc_.create(0, { 0,0, 0, 0 }, "", WS_CHILD | WS_VISIBLE | SS_CENTER | SS_BITMAP);
+    okBtn_.create(1, { 135, 143, 62, 27 });
+    closeBtn_.create(2, { 309, 6, 12, 15 });
+    titleStc_.create(3, { 9, 4, 105, 24 }, "");
+    textStc_.create(4, { 31, 69, 270,  59 }, "");
     
     initFont();
     initBK();

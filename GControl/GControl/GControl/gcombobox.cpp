@@ -45,6 +45,24 @@ ComboBox::~ComboBox()
 {
 }
 
+BOOL ComboBox::create(int id, IRect rect, int style)
+{
+    auto ret = CComboBox::Create(style, rect, parent_, id);
+    if(ret)
+        SetFont(parent_->GetFont());
+    return ret;
+}
+
+BOOL ComboBox::createDropDown(int id, IRect rect)
+{
+    return create(id, rect, CBS_DROPDOWN | CBS_OWNERDRAWFIXED | CBS_HASSTRINGS | WS_VISIBLE | WS_CHILD);
+}
+
+BOOL ComboBox::createDropList(int id, IRect rect)
+{
+    return create(id, rect, CBS_DROPDOWNLIST | CBS_OWNERDRAWFIXED | CBS_HASSTRINGS | WS_VISIBLE | WS_CHILD);
+}
+
 void ComboBox::loadDownPic(int bmpID)
 {
     downBmp_.LoadBitmap(bmpID);

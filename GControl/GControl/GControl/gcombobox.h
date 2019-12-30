@@ -38,6 +38,10 @@ public:
     ComboBox(CWnd &parent);
     virtual ~ComboBox();
 
+    BOOL create(int id, IRect rect, int style);
+    BOOL createDropDown(int id, IRect rect);
+    BOOL createDropList(int id, IRect rect);
+
     // 加载图片
     void loadDownPic(int bmpID);
     void loadDownPic(const CString & bmpPath);
@@ -66,6 +70,10 @@ public:
 
 private:
     void DrawItem(LPDRAWITEMSTRUCT lps);
+    void MeasureItem(LPMEASUREITEMSTRUCT){}
+    void DeleteItem(LPDELETEITEMSTRUCT){}
+    int CompareItem(LPCOMPAREITEMSTRUCT){return 0;}
+
     void DrawShowText(CDC* pDC, CRect rect);
     void DrawPicture(CDC* pDC, CRect rect);
 

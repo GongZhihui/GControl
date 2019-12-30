@@ -29,6 +29,7 @@ protected:
     void initBK();
     void initGroupBox();
     void initBtn();
+    void createCtrl();
 private:
     CBitmap bkbmp_;
 public:
@@ -47,4 +48,10 @@ public:
     GCtrl::ButtonEx testCheckBox_{ *this };
     GCtrl::Edit testEdit_{ *this };
     afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
+
+    GCtrl::Edit createEdit{ *this };
+    GCtrl::GroupBox createGroupBox{ *this };
+    GCtrl::ListBox create{ *this };
+    GCtrl::Static createStatic{ *this };
+    GCtrl::ComboBox createCombo{ *this };
 };

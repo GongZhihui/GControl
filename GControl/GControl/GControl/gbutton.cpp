@@ -62,6 +62,12 @@ Button::~Button()
 {
 }
 
+BOOL Button::create(int id, const IRect &rect, const char * text, int style)
+{
+    auto rc = rect;
+    return CButton::Create(text, style, rc, parent_, id);
+}
+
 void Button::OnMouseHover(UINT nFlags, CPoint point)
 {
     CButton::OnMouseHover(nFlags, point);
@@ -384,14 +390,31 @@ PushButton::PushButton(CWnd &parent)
 {
 }
 
+BOOL PushButton::create(int id, const IRect & rect)
+{
+    return Button::create(id, rect, "", WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON);
+}
+
 RadioButton::RadioButton(CWnd &parent)
     : Button{BtnType::Radio, parent}
 {
 }
 
+BOOL RadioButton::create(int id, const IRect & rect)
+{
+    BOOL create(int id, const IRect &rect);
+    return Button::create(id, rect, "", WS_CHILD | WS_VISIBLE | BS_RADIOBUTTON);
+}
+
 CheckBox::CheckBox(CWnd &parent)
     : Button{BtnType::CheckBox, parent}
 {
+}
+
+BOOL CheckBox::create(int id, const IRect & rect)
+{
+    BOOL create(int id, const IRect &rect);
+    return Button::create(id, rect, "", WS_CHILD | WS_VISIBLE | BS_CHECKBOX);
 }
 
 ButtonEx::ButtonEx(CWnd & parent)

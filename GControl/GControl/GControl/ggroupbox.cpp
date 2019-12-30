@@ -25,7 +25,8 @@ BEGIN_MESSAGE_MAP(GroupBox, Static)
     ON_WM_PAINT()
 END_MESSAGE_MAP()
 
-GCtrl::GroupBox::GroupBox()
+GCtrl::GroupBox::GroupBox(CWnd &parent)
+    : Static{parent}
 {
 }
 

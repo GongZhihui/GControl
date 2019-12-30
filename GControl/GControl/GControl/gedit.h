@@ -27,7 +27,7 @@ class Edit
     , public Basic
 {
 public:
-    Edit();
+    Edit(CWnd &parent);
     ~Edit();
 
     // 设置边框颜色
@@ -39,6 +39,7 @@ private:
     DECLARE_MESSAGE_MAP()
     afx_msg void OnNcPaint();
     HBRUSH CtlColor(CDC *dc, UINT color);
+
 private:
     COLORREF borderClr_{ RGB(195, 215, 220) };
     CPoint arcPoint_{ 0,0 };

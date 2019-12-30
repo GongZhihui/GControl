@@ -34,7 +34,7 @@ BEGIN_MESSAGE_MAP(Button, CButton)
 END_MESSAGE_MAP()
 
 Button::Button(CWnd &parent)
-    : parent_{ &parent}
+    : Basic{ parent}
 {
 }
 
@@ -54,7 +54,7 @@ HBRUSH Button::CtlColor(CDC *dc, UINT col)
 
 Button::Button(BtnType type, CWnd &parent)
     : btnType_{type}
-    , parent_{&parent}
+    , Basic{parent}
 {
 }
 
@@ -90,8 +90,14 @@ void Button::OnMouseLeave()
 
 void GCtrl::Button::OnBnClicked()
 {
-    if (clickedEvent_)
+    if (clickedEvent_) 
+    {
         clickedEvent_(check_);
+    }
+    else 
+    {
+        parent_->SendMessage(WM_COMMAND, MAKEWPARAM(GetDlgCtrlID(), BN_CLICKED), 0);
+    }
 }
 
 void Button::DrawItem(LPDRAWITEMSTRUCT lps)
@@ -360,11 +366,6 @@ void Button::setCheck(bool check)
 bool Button::getCheck()
 {
     return check_;
-}
-
-void Button::setParent(CWnd * parent)
-{
-    parent_ = parent;
 }
 
 void Button::setGroup(GroupBox * group)

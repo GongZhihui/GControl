@@ -33,7 +33,9 @@ namespace GCtrl
         以上几种子类未提供默认构造,都必须有parent
 
 */
-class Button : public CButton
+class Button 
+    : public CButton
+    , public Basic
 {
 public:
     // 点击事件
@@ -61,7 +63,7 @@ public:
     CSize getBitmapSize();
     void setCheck(bool check = true);
     bool getCheck();
-    void setParent(CWnd *parent);
+  
     void setGroup(GroupBox *group);
 
     void setClickedEvent(ClickedEvent &&clicked);
@@ -88,7 +90,6 @@ protected:
     CBitmap pressedbmp_;
 
     CRect iconRect_;
-    CWnd *parent_{ nullptr };
     GroupBox *group_{ nullptr };
 
     COLORREF bkcolor_{ BadColor };

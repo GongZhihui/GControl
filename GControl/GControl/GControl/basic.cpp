@@ -21,7 +21,8 @@
 namespace GCtrl
 {
 
-Basic::Basic()
+Basic::Basic(CWnd &parent)
+    : parent_{&parent}
 {
 }
 
@@ -51,6 +52,16 @@ void Basic::setBKColor(COLORREF color)
 void Basic::setTextColor(COLORREF color)
 {
     textcolor_ = color;
+}
+
+void Basic::setParent(CWnd & parent)
+{
+    parent_ = &parent;
+}
+
+CWnd & Basic::getParent()
+{
+    return *parent_;
 }
 
 CFont & Basic::getFont()

@@ -26,7 +26,8 @@ BEGIN_MESSAGE_MAP(Edit, CEdit)
     ON_WM_CTLCOLOR_REFLECT()
 END_MESSAGE_MAP()
 
-Edit::Edit()
+Edit::Edit(CWnd &parent)
+    : Basic{parent}
 {
     textcolor_ = { RGB(0,0,0) };
     bkcolor_ = { RGB(255,255,255) };

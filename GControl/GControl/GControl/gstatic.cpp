@@ -21,7 +21,8 @@
 namespace GCtrl
 {
 
-Static::Static()
+Static::Static(CWnd &parent)
+    : Basic{parent}
 {
 }
 

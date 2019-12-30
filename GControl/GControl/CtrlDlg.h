@@ -33,11 +33,11 @@ private:
     CBitmap bkbmp_;
 public:
     //CStatic zwflGpbox_;
-    GCtrl::GroupBox zwflGpbox_;
+    GCtrl::GroupBox zwflGpbox_{ *this };
     GCtrl::ButtonEx cxyRiobtn_{*this};
     GCtrl::ButtonEx xmjlRiobtn_{*this};
     GCtrl::ButtonEx xsRiobtn_{*this};
-    GCtrl::Static tipStc_;
+    GCtrl::Static tipStc_{ *this };
     GCtrl::PushButton testBtn_{*this};
     GCtrl::RadioButton testRiobtn_{ *this };
     GCtrl::RadioButton testRiobtn2_{ *this };
@@ -45,6 +45,6 @@ public:
     GCtrl::CheckBox testChkbox_{ *this };
     CDateTimeCtrl dtc_;
     GCtrl::ButtonEx testCheckBox_{ *this };
-    GCtrl::Edit testEdit_;
+    GCtrl::Edit testEdit_{ *this };
     afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
 };

@@ -36,7 +36,8 @@ BEGIN_MESSAGE_MAP(ComboBox, CComboBox)
     ON_WM_SETFOCUS()
 END_MESSAGE_MAP()
 
-ComboBox::ComboBox()
+ComboBox::ComboBox(CWnd &parent)
+    : Basic{parent}
 {
 }
 
@@ -200,14 +201,26 @@ void ComboBox::DrawShowText(CDC* pDC, CRect rect)
 void ComboBox::OnCbnSelchange()
 {
     Invalidate();
-    if (selChange_)
+    if (selChange_) 
+    {
         selChange_();
+    }
+    else 
+    {
+        parent_->SendMessage(WM_COMMAND, MAKEWPARAM(GetDlgCtrlID(), CBN_SELCHANGE));
+    }
 }
 
 void ComboBox::OnCbnDropdown()
 {
-    if (dropDown_)
+    if (dropDown_) 
+    {
         dropDown_();
+    }
+    else 
+    {
+        parent_->SendMessage(WM_COMMAND, MAKEWPARAM(GetDlgCtrlID(), CBN_DROPDOWN));
+    }
 }
 
 

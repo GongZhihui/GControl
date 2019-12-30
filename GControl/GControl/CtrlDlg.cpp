@@ -81,22 +81,22 @@ void CCtrlDlg::initBtn()
 {
     testBtn_.setBitmap(IDB_BITMAP_SPSZ, IDB_BITMAP_SPSZ_HOVER, IDB_BITMAP_SPSZ_PRESS);
     testBtn_.setSize({0,0,80,26});
-    testBtn_.setParent(this);
+    testBtn_.setParent(*this);
     testRiobtn_.setCheck();
-    testRiobtn_.setParent(this);
+    testRiobtn_.setParent(*this);
     testRiobtn_.setGroup(&zwflGpbox_);
-    testRiobtn2_.setParent(this);
+    testRiobtn2_.setParent(*this);
     testRiobtn2_.setGroup(&zwflGpbox_);
-    testRiobtn3_.setParent(this);
+    testRiobtn3_.setParent(*this);
     testRiobtn3_.setGroup(&zwflGpbox_);
 
     testChkbox_.setCheck();
-    testChkbox_.setParent(this);
+    testChkbox_.setParent(*this);
 
     tipStc_.setTextColor(RGB(255,0,0));
-    testEdit_.setTextColor(RGB(0,0,0));
+    /*testEdit_.setTextColor(RGB(0,0,0));
     testEdit_.setBKColor(RGB(255,0,0));
-    testEdit_.setBorderColor(RGB(255,0,0));
+    testEdit_.setBorderColor(RGB(255,0,0));*/
     testEdit_.SetWindowTextA("这是一个编辑框");
 }
 

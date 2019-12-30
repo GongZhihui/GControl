@@ -27,7 +27,9 @@ constexpr auto BadColor =  0xFFFFFFFF;
 class Basic 
 {
 public:
-    Basic();
+    // 不提供默认构造，这里必须是引用，
+    // 得保证parent必须存在，不为nullptr
+    Basic(CWnd &parent);
     virtual ~Basic();
 
     // 这个font仅用作子类化时, 其他时候，请重新创建个font
@@ -37,11 +39,15 @@ public:
     void setBKColor(COLORREF color);
     void setTextColor(COLORREF color);
 
+    void setParent(CWnd &parent);
+    CWnd &getParent();
+
     // 谨慎使用这个，最好只在子类化该控件时用这个
     // 其他时候，请重新创建个font
     CFont& getFont();
 
 protected:
+    CWnd *parent_{ nullptr };
     CFont font_;
     COLORREF bkcolor_{ BadColor };
     COLORREF textcolor_{ BadColor };

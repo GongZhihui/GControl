@@ -33,7 +33,7 @@ public:
         Right
     };
 
-    Static();
+    Static(CWnd &parent);
     void setTextAlign(TextAlign align);
   
 private:

@@ -92,9 +92,9 @@ private:
     CDateTimeCtrl timeCtrl_;
     CEdit edit_;
 
-    Static titleStc_;
-    Static textStc_;
-    Static bkStc_;
+    Static titleStc_{ *this };
+    Static textStc_{ *this };
+    Static bkStc_{ *this };
 
     CBitmap bkbmp_;
 

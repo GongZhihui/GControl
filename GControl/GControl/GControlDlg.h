@@ -41,10 +41,10 @@ protected:
 	DECLARE_MESSAGE_MAP()
 private:
     CBitmap bk_;
-    GCtrl::ComboBox aCobo_;
-    GCtrl::Edit aEdit_;
+    GCtrl::ComboBox aCobo_{*this};
+    GCtrl::Edit aEdit_{ *this };
     CFont f;
-    GCtrl::ListBox aListbox_;
+    GCtrl::ListBox aListbox_{ *this };
 public:
     CStatic dcanStc;
     CStatic xbStc_;

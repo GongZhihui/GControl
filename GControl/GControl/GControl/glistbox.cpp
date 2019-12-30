@@ -25,7 +25,8 @@ BEGIN_MESSAGE_MAP(ListBox, CListBox)
    
 END_MESSAGE_MAP()
 
-ListBox::ListBox()
+ListBox::ListBox(CWnd &parent)
+    : Basic{parent}
 {
 }
 

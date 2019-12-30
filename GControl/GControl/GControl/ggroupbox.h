@@ -23,12 +23,13 @@
 namespace GCtrl
 {
 
-class GroupBox : public Static
+class GroupBox 
+    : public Static
 {
 public:
     using RadioBtns = std::vector<CButton*>;
 
-    GroupBox();
+    GroupBox(CWnd &parent);
     void setBorderColor(COLORREF color);
     void setTopPos(int pos);
     void push_back(CButton *btn);

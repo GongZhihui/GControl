@@ -35,7 +35,7 @@ public:
     using SelChange = std::function<void(void)>;
     using DropDown = std::function<void(void)>;
 
-    ComboBox();
+    ComboBox(CWnd &parent);
     virtual ~ComboBox();
 
     // 加载图片
@@ -72,8 +72,8 @@ private:
 private:
     // 在这里子类化edit和listbox
     afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
-    afx_msg void OnCbnSelchange();
     afx_msg void OnPaint();
+    afx_msg void OnCbnSelchange();
     afx_msg void OnCbnDropdown();
     afx_msg void OnDestroy();
     // 失去焦点和获取焦点时必须调用次刷新，
@@ -91,8 +91,8 @@ private:
     COLORREF outerClr_{ RGB(195, 215, 220) };
     COLORREF btnClr_{ RGB(127,127,127) };
 
-    ListBox listBox_;
-    Edit edit_;
+    ListBox listBox_{ *this };
+    Edit edit_{ *this };
 
     SelChange selChange_;
     DropDown dropDown_;

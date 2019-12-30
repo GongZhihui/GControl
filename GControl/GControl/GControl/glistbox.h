@@ -27,7 +27,7 @@ class ListBox
     , public Basic
 {
 public:
-    ListBox();
+    ListBox(CWnd &parent);
     ~ListBox();
 
     // 设置listbox背景颜色，文字颜色

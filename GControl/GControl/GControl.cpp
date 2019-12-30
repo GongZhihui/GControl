@@ -61,7 +61,8 @@ BOOL CGControlApp::InitInstance()
 
     auto nnn = static_cast<int>(3.78);
     auto nnnn = std::round(3.78);
-
+    
+    GCtrl::IRect rett1;
     GCtrl::DRect ret{1.1,2.6,3.7,5.5};
     auto n = ret.right();
     auto rect1 = ret.crect();

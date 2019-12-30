@@ -29,6 +29,7 @@ class Rect
 public:
     using type = T;
 
+    Rect() = default;
     Rect(T x, T y, T width, T height);
 
     T &x();
@@ -43,10 +44,10 @@ public:
     operator CRect();
 
 private:
-    T x_{ 0.0 };
-    T y_{ 0.0 };
-    T width_{ 0.0 };
-    T height_{ 0.0 };
+    T x_{ 0 };
+    T y_{ 0 };
+    T width_{ 0 };
+    T height_{ 0 };
 };
 
 using IRect = Rect<int>;

@@ -15,6 +15,9 @@
 #define IDB_BITMAP_MSG_CLOSE            142
 #define IDB_BITMAP5                     143
 #define IDB_BITMAP_MSG_OK               143
+#define IDB_PNG_TSYX                    144
+#define IDB_BITMAP3                     145
+#define IDB_BITMAP_TSYX                 145
 #define IDC_COMBO_A                     1000
 #define IDC_EDIT_A                      1001
 #define IDC_LISTBOX_A                   1002
@@ -37,16 +40,16 @@
 #define IDC_BUTTON1                     1024
 #define IDC_DATETIMEPICKER              1025
 #define IDC_CHECK1                      1026
-#define IDC_EDIT1                       1027
 #define IDC_EDIT_TEST_T                 1027
+#define IDC_BUTTON_TSYX                 1028
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        144
+#define _APS_NEXT_RESOURCE_VALUE        146
 #define _APS_NEXT_COMMAND_VALUE         32771
-#define _APS_NEXT_CONTROL_VALUE         1028
+#define _APS_NEXT_CONTROL_VALUE         1029
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif

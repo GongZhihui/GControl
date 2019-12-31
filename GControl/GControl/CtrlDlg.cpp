@@ -6,7 +6,7 @@
 #include "CtrlDlg.h"
 #include "afxdialogex.h"
 #include "resource.h"
-
+#include "GControl/gcontrol.h"
 
 // CCtrlDlg 对话框
 
@@ -38,6 +38,7 @@ void CCtrlDlg::DoDataExchange(CDataExchange* pDX)
     DDX_Control(pDX, IDC_DATETIMEPICKER, dtc_);
     DDX_Control(pDX, IDC_CHECK_TEST2, testCheckBox_);
     DDX_Control(pDX, IDC_EDIT_TEST_T, testEdit_);
+    DDX_Control(pDX, IDC_BUTTON_TSYX, tsyxBtn_);
 }
 
 
@@ -45,6 +46,8 @@ BEGIN_MESSAGE_MAP(CCtrlDlg, CDialogEx)
     ON_BN_CLICKED(IDC_BUTTON_TEST, &CCtrlDlg::OnBnClickedButtonTest)
     ON_BN_CLICKED(IDC_BUTTON1, &CCtrlDlg::OnBnClickedButton1)
     ON_WM_CTLCOLOR()
+    ON_WM_NCHITTEST()
+    ON_BN_CLICKED(IDC_BUTTON_TSYX, &CCtrlDlg::OnBnClickedButtonTsyx)
 END_MESSAGE_MAP()
 
 
@@ -90,6 +93,9 @@ void CCtrlDlg::initBtn()
     testRiobtn2_.setGroup(&zwflGpbox_);
     testRiobtn3_.setParent(*this);
     testRiobtn3_.setGroup(&zwflGpbox_);
+
+    tsyxBtn_.setBitmap(IDB_PNG_TSYX);
+    //tsyxBtn_.setBitmap(IDB_BITMAP_TSYX);
 
     testChkbox_.setCheck();
     testChkbox_.setParent(*this);
@@ -159,4 +165,19 @@ HBRUSH CCtrlDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
         return brush;
     }*/
     return hbr;
+}
+
+
+LRESULT CCtrlDlg::OnNcHitTest(CPoint point)
+{
+ 
+    dragdialog();
+
+    return __super::OnNcHitTest(point);
+}
+
+
+void CCtrlDlg::OnBnClickedButtonTsyx()
+{
+    // TODO: 在此添加控件通知处理程序代码
 }

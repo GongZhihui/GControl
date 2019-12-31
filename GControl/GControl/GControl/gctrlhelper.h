@@ -23,6 +23,13 @@ namespace GCtrl
 
 #define super __super
 
+#define dragdialog()                       \
+    CRect rect;                            \
+    GetClientRect(rect);                   \
+    ClientToScreen(rect);                  \
+    if (rect.PtInRect(point))              \
+        return HTCAPTION                   \
+
 class CtrlHelper 
 {
 public:

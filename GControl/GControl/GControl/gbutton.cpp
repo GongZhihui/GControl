@@ -72,7 +72,14 @@ void Button::OnMouseHover(UINT nFlags, CPoint point)
 {
     CButton::OnMouseHover(nFlags, point);
     hover_ = true;
-    InvalidateRect(iconRect_);
+    if (btnType_ == BtnType::PushButton)
+    {
+        Invalidate();
+    }
+    else 
+    {
+        InvalidateRect(iconRect_);
+    }
 }
 
 void Button::OnMouseMove(UINT nFlags, CPoint point)
@@ -182,27 +189,16 @@ void Button::DrawItem(LPDRAWITEMSTRUCT lps)
         {
             if (press_)
             {
-                pressedbmp_.GetBitmap(&bitmap);
                 memDc.SelectObject(pressedbmp_);
             }
             else
             {
-                hoverbmp_.GetBitmap(&bitmap);
                 memDc.SelectObject(hoverbmp_);
             }
         }
         else 
         {
-            if (press_)
-            {
-                pressedbmp_.GetBitmap(&bitmap);
-                memDc.SelectObject(pressedbmp_);
-            }
-            else
-            {
-                hoverbmp_.GetBitmap(&bitmap);
-                memDc.SelectObject(hoverbmp_);
-            }
+            memDc.SelectObject(normalbmp_);
         }
         dc->BitBlt(rect.left, rect.top, rect.Width(), rect.Height(), &memDc, 0, 0, SRCCOPY);
     }

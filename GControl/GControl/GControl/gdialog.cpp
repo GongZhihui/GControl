@@ -184,7 +184,7 @@ BOOL MsgBox::OnInitDialog()
     Dialog::OnInitDialog();
 
     bkStc_.create(0, { 0,0, 0, 0 }, "", WS_CHILD | WS_VISIBLE | SS_CENTER | SS_BITMAP);
-    okBtn_.create(1, { 135, 143, 62, 27 });
+    okBtn_.create(1, { 135, 135, 62, 27 });
     closeBtn_.create(2, { 309, 6, 12, 15 });
     titleStc_.create(3, { 9, 4, 105, 24 }, "");
     textStc_.create(4, { 31, 69, 270,  59 }, "");

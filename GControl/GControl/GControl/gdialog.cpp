@@ -170,7 +170,6 @@ void MsgBox::info_time(const CString & text, int timeout, const CString &title)
         dlg.okBtnClicked(); 
     } }.detach();
     dlg.DoModal();
-    return;
 }
 
 int MsgBox::info(const CString &text, const CString &title)

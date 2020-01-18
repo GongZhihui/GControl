@@ -62,6 +62,7 @@ BOOL CGControlApp::InitInstance()
     auto nnn = static_cast<int>(3.78);
     auto nnnn = std::round(3.78);
     
+
     GCtrl::IRect rett1;
     GCtrl::DRect ret{1.1,2.6,3.7,5.5};
     auto n = ret.right();
@@ -73,6 +74,7 @@ BOOL CGControlApp::InitInstance()
     n = rett(ret);
 
     GCtrl::MsgBox::init(IDB_BITMAP_MSG_BK, IDB_BITMAP_MSG_OK, IDB_BITMAP_MSG_CLOSE);
+    GCtrl::MsgBox::info_time("开具成功!", 2000,"啥东西哇发票已经开具成功");
     GCtrl::MsgBox::info("发票已经开具成功, 无法重新开票, 但数据上传异常, 请联系服务单位进行处理！");
     CCtrlDlg cdlg;
     cdlg.DoModal();

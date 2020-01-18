@@ -67,18 +67,23 @@ public:
 
 public:
     static void init(int bkbmp, int okbmp, int closebmp, const CRect &rect = initRect);
-    static int info(const CString text, const CString title = "提示");
-    static int info(CWnd *parent, const CString text, const CString title = "提示");
-    static int info(HWND parent, const CString text, const CString title = "提示");
+    static int info(const CString &text, const CString &title = "提示");
+    static int info(CWnd *parent, const CString &text, const CString &title = "提示");
+    static int info(HWND parent, const CString &text, const CString &title = "提示");
+    
+    // 延迟timeout毫秒后自动关闭
+    static void  info_time(const CString &text, int timeout = 2000, const CString &title = "提示");
 
+    void okBtnClicked();
 private:
     virtual BOOL OnInitDialog();
-    void setData(const CString text, const CString title);
+    void setData(const CString &text, const CString &title = "提示");
     void setBmp(int bk, int close, int ok);
     void initFont();
     void initBK();
     void initData();
     void initCtrl();
+
 
 private:
     static int okID_;

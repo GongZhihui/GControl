@@ -31,9 +31,12 @@ protected:
     void initGroupBox();
     void initBtn();
     void createCtrl();
+    void initTreeCtrl();
+
 private:
     CBitmap bkbmp_;
 public:
+    CFont treeFont_;
     //CStatic zwflGpbox_;
     GCtrl::GroupBox zwflGpbox_{ *this };
     GCtrl::ButtonEx cxyRiobtn_{*this};
@@ -55,6 +58,13 @@ public:
     GCtrl::Static createStatic{ *this };
     GCtrl::ComboBox createCombo{ *this };
     afx_msg LRESULT OnNcHitTest(CPoint point);
-    GCtrl::PushButton tsyxBtn_{*this};
     afx_msg void OnBnClickedButtonTsyx();
+    GCtrl::PushButton tsyxBtn_{*this};
+    CTreeCtrl testTree_;
+    afx_msg void OnNMClickTreeTest(NMHDR *pNMHDR, LRESULT *pResult);
+    afx_msg void OnTvnSingleExpandTreeTest(NMHDR *pNMHDR, LRESULT *pResult);
+    afx_msg void OnTvnItemChangedTreeTest(NMHDR *pNMHDR, LRESULT *pResult);
+    afx_msg void OnTvnItemexpandedTreeTest(NMHDR *pNMHDR, LRESULT *pResult);
+    afx_msg void OnTvnSelchangedTreeTest(NMHDR *pNMHDR, LRESULT *pResult);
+    afx_msg void OnTvnSelchangingTreeTest(NMHDR *pNMHDR, LRESULT *pResult);
 };

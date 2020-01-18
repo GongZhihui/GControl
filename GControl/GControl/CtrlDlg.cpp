@@ -39,6 +39,7 @@ void CCtrlDlg::DoDataExchange(CDataExchange* pDX)
     DDX_Control(pDX, IDC_CHECK_TEST2, testCheckBox_);
     DDX_Control(pDX, IDC_EDIT_TEST_T, testEdit_);
     DDX_Control(pDX, IDC_BUTTON_TSYX, tsyxBtn_);
+    DDX_Control(pDX, IDC_TREE_TEST, testTree_);
 }
 
 
@@ -48,6 +49,8 @@ BEGIN_MESSAGE_MAP(CCtrlDlg, CDialogEx)
     ON_WM_CTLCOLOR()
     ON_WM_NCHITTEST()
     ON_BN_CLICKED(IDC_BUTTON_TSYX, &CCtrlDlg::OnBnClickedButtonTsyx)
+    ON_NOTIFY(TVN_ITEMEXPANDED, IDC_TREE_TEST, &CCtrlDlg::OnTvnItemexpandedTreeTest)
+    ON_NOTIFY(TVN_SELCHANGED, IDC_TREE_TEST, &CCtrlDlg::OnTvnSelchangedTreeTest)
 END_MESSAGE_MAP()
 
 
@@ -57,6 +60,7 @@ END_MESSAGE_MAP()
 BOOL CCtrlDlg::OnInitDialog()
 {
     __super::OnInitDialog();
+    initTreeCtrl();
     initBK();
     initGroupBox();
     initBtn();
@@ -132,6 +136,19 @@ void CCtrlDlg::createCtrl()
 
 }
 
+void CCtrlDlg::initTreeCtrl()
+{
+    GCtrl::CtrlHelper::initFont(treeFont_);
+    //插入根节点  
+    auto zhongguo = testTree_.InsertItem("中国");
+    auto shanxi = testTree_.InsertItem("山西", zhongguo);
+    auto taiyuan = testTree_.InsertItem("太原", shanxi);
+    auto yuncheng = testTree_.InsertItem("运城", shanxi);
+    auto shandong = testTree_.InsertItem("山东", zhongguo);
+    testTree_.Expand(zhongguo, TVE_EXPAND);//根部展开
+    testTree_.SetFont(&treeFont_);
+}
+
 
 void CCtrlDlg::OnBnClickedButtonTest()
 {
@@ -180,4 +197,51 @@ LRESULT CCtrlDlg::OnNcHitTest(CPoint point)
 void CCtrlDlg::OnBnClickedButtonTsyx()
 {
     // TODO: 在此添加控件通知处理程序代码
+}
+
+
+void CCtrlDlg::OnNMClickTreeTest(NMHDR *pNMHDR, LRESULT *pResult)
+{
+    // TODO: 在此添加控件通知处理程序代码
+    *pResult = 0;
+}
+
+
+void CCtrlDlg::OnTvnSingleExpandTreeTest(NMHDR *pNMHDR, LRESULT *pResult)
+{
+    LPNMTREEVIEW pNMTreeView = reinterpret_cast<LPNMTREEVIEW>(pNMHDR);
+    // TODO: 在此添加控件通知处理程序代码
+    *pResult = 0;
+}
+
+
+void CCtrlDlg::OnTvnItemChangedTreeTest(NMHDR *pNMHDR, LRESULT *pResult)
+{
+    NMTVITEMCHANGE *pNMTVItemChange = reinterpret_cast<NMTVITEMCHANGE*>(pNMHDR);
+    // TODO: 在此添加控件通知处理程序代码
+    *pResult = 0;
+}
+
+
+void CCtrlDlg::OnTvnItemexpandedTreeTest(NMHDR *pNMHDR, LRESULT *pResult)
+{
+    LPNMTREEVIEW pNMTreeView = reinterpret_cast<LPNMTREEVIEW>(pNMHDR);
+    // TODO: 在此添加控件通知处理程序代码
+    *pResult = 0;
+}
+
+
+void CCtrlDlg::OnTvnSelchangedTreeTest(NMHDR *pNMHDR, LRESULT *pResult)
+{
+    LPNMTREEVIEW pNMTreeView = reinterpret_cast<LPNMTREEVIEW>(pNMHDR);
+    // TODO: 在此添加控件通知处理程序代码
+    *pResult = 0;
+}
+
+
+void CCtrlDlg::OnTvnSelchangingTreeTest(NMHDR *pNMHDR, LRESULT *pResult)
+{
+    LPNMTREEVIEW pNMTreeView = reinterpret_cast<LPNMTREEVIEW>(pNMHDR);
+    // TODO: 在此添加控件通知处理程序代码
+    *pResult = 0;
 }

@@ -18,6 +18,7 @@
 #include "stdafx.h"
 #include "gdialog.h"
 #include "Resource.h"
+#include <thread>
 
 namespace GCtrl 
 {
@@ -143,7 +144,7 @@ void MsgBox::init(int bkbmp, int okbmp, int closebmp, const CRect &rect)
     initRect = rect;
 }
 
-int MsgBox::info(CWnd *parent, const CString text, const CString title)
+int MsgBox::info(CWnd *parent, const CString &text, const CString &title)
 {
     MsgBox dlg;
     if(parent && parent->m_hWnd)
@@ -153,17 +154,31 @@ int MsgBox::info(CWnd *parent, const CString text, const CString title)
     return dlg.DoModal();
 }
 
-int MsgBox::info(HWND parent, const CString text, const CString title)
+int MsgBox::info(HWND parent, const CString &text, const CString &title)
 {
     return info(CWnd::FromHandle(parent), text, title);
 }
 
-int MsgBox::info(const CString text, const CString title)
+void MsgBox::info_time(const CString & text, int timeout, const CString &title)
+{
+    MsgBox dlg;
+    dlg.setData(text, title);
+    dlg.createModal(initRect);
+    std::thread{ [&]()
+    {
+        Sleep(timeout);
+        dlg.okBtnClicked(); 
+    } }.detach();
+    dlg.DoModal();
+    return;
+}
+
+int MsgBox::info(const CString &text, const CString &title)
 {
     return info(CWnd{}, text, title);
 }
 
-void MsgBox::setData(const CString text, const CString title)
+void MsgBox::setData(const CString &text, const CString &title)
 {
     title_ = title;
     text_ = text;
@@ -186,7 +201,7 @@ BOOL MsgBox::OnInitDialog()
     bkStc_.create(0, { 0,0, 0, 0 }, "", WS_CHILD | WS_VISIBLE | SS_CENTER | SS_BITMAP);
     okBtn_.create(1, { 135, 135, 62, 27 });
     closeBtn_.create(2, { 309, 6, 12, 15 });
-    titleStc_.create(3, { 9, 4, 105, 24 }, "");
+    titleStc_.create(3, { 9, 4, 200, 24 }, "");
     textStc_.create(4, { 31, 69, 270,  59 }, "");
     
     initFont();
@@ -241,5 +256,9 @@ void MsgBox::initCtrl()
     okBtn_.setClickedEvent([&](bool) {OnOK(); });
     closeBtn_.setBitmap(closeID_);
     closeBtn_.setClickedEvent([&](bool) {OnCancel(); });
+}
+void MsgBox::okBtnClicked()
+{
+    PostMessage(WM_COMMAND, MAKEWPARAM(1, BN_CLICKED), 0);
 }
 } //!namespace GCtrl

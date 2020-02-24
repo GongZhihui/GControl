@@ -401,7 +401,6 @@ RadioButton::RadioButton(CWnd &parent)
 
 BOOL RadioButton::create(int id, const IRect & rect)
 {
-    BOOL create(int id, const IRect &rect);
     return Button::create(id, rect, "", WS_CHILD | WS_VISIBLE | BS_RADIOBUTTON);
 }
 

@@ -328,6 +328,9 @@ void Button::setSize(int width, int height)
 
 void Button::setBitmap(int normalBmpID, int hoverBmpID, int pressedBmpID)
 {
+    normalbmp_.DeleteObject();
+    hoverbmp_.DeleteObject();
+    pressedbmp_.DeleteObject();
     normalbmp_.LoadBitmap(normalBmpID);
     if (hoverBmpID != -1) 
     {
@@ -409,7 +412,6 @@ CheckBox::CheckBox(CWnd &parent)
 
 BOOL CheckBox::create(int id, const IRect & rect)
 {
-    BOOL create(int id, const IRect &rect);
     return Button::create(id, rect, "", WS_CHILD | WS_VISIBLE | BS_CHECKBOX);
 }
 

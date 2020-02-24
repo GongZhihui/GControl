@@ -24,6 +24,8 @@ namespace GCtrl
 {
 
 constexpr auto BadColor =  0xFFFFFFFF;
+constexpr auto WhiteColor = RGB(255, 255, 255);
+constexpr auto BlackColor = RGB(0, 0, 0);
 
 class Basic 
 {

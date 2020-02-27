@@ -161,15 +161,21 @@ int MsgBox::info(HWND parent, const CString &text, const CString &title)
 
 void MsgBox::info_time(const CString & text, int timeout, const CString &title)
 {
-    MsgBox dlg;
-    dlg.setData(text, title);
-    dlg.createModal(initRect);
-    std::thread{ [&]()
+    // 这里用new是因为 如果点击关闭太快导致对象析构
+    // 而这时候线程还未执行，可能导致空指针或者空句柄
+    // 从而引发错误
+    MsgBox *dlg = new MsgBox;
+    dlg->setData(text, title);
+    dlg->createModal(initRect);
+    std::thread{ [=]()
     {
         Sleep(timeout);
-        dlg.okBtnClicked(); 
+        if(dlg && dlg->m_hWnd)
+            dlg->okBtnClicked(); 
     } }.detach();
-    dlg.DoModal();
+    dlg->DoModal();
+    delete dlg;
+    dlg = nullptr;
 }
 
 int MsgBox::info(const CString &text, const CString &title)
@@ -258,6 +264,13 @@ void MsgBox::initCtrl()
 }
 void MsgBox::okBtnClicked()
 {
-    PostMessage(WM_COMMAND, MAKEWPARAM(1, BN_CLICKED), 0);
+    if (m_hWnd)
+    {
+        // 这里必须用全局的::SendMessage函数
+        // 如果调用CWnd::SendMessage(), 还是
+        // 有可能发生m_hWnd为NULL的情况，
+        // 在线程中使用的话
+        ::SendMessage(m_hWnd, WM_COMMAND, MAKEWPARAM(1, BN_CLICKED), 0);
+    }
 }
 } //!namespace GCtrl

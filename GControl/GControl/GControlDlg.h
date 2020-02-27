@@ -45,6 +45,7 @@ private:
     GCtrl::Edit aEdit_{ *this };
     CFont f;
     GCtrl::ListBox aListbox_{ *this };
+    GCtrl::ComboBox textcob_{ *this };
 public:
     CStatic dcanStc;
     CStatic xbStc_;

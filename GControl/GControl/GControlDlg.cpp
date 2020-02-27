@@ -91,6 +91,26 @@ void CGControlDlg::initComboBox()
     aCobo_.SetCurSel(0);
     aCobo_.setTextColor(RGB(255, 0, 0));
     //aCobo_.setItemColor(RGB(255,0,0));
+
+
+    textcob_.createDropList(20, {400, 200, 400, 30});
+    textcob_.InsertString(0, "桔子");
+    textcob_.InsertString(1, "苹果");
+    textcob_.InsertString(2, "梨");
+    textcob_.InsertString(3, "梨");
+    textcob_.InsertString(4, "梨");
+    textcob_.InsertString(5, "梨");
+    textcob_.InsertString(6, "梨");
+    textcob_.InsertString(7, "梨");
+    textcob_.InsertString(8, "梨");
+    textcob_.setItemSelectedColor(RGB(255, 0, 0));
+  
+    textcob_.setFont(f);
+    textcob_.setItemHeight(20);
+    textcob_.setHeight(25);
+    textcob_.SetCurSel(0);
+    textcob_.setTextColor(RGB(255, 0, 0));
+
 }
 
 void CGControlDlg::initEdit()

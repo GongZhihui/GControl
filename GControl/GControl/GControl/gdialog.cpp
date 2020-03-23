@@ -130,9 +130,16 @@ void Dialog::setWindowRect(const CRect & rect)
 int MsgBox::okID_ = -1;
 int MsgBox::closeID_ = -1;
 int MsgBox::bkID_ = -1;
+int MsgBox::TimeCloseEventID = 1;
 CRect MsgBox::initRect = { 0,0,330,192 };
 
 MsgBox::MsgBox()
+{
+}
+
+MsgBox::MsgBox(bool isTime, int time)
+    : isTime_(isTime)
+    , time_(time)
 {
 }
 
@@ -147,10 +154,10 @@ void MsgBox::init(int bkbmp, int okbmp, int closebmp, const CRect &rect)
 int MsgBox::info(CWnd *parent, const CString &text, const CString &title)
 {
     MsgBox dlg;
-    if(parent && parent->m_hWnd)
-        dlg.SetParent(parent);
+    //if(parent && parent->m_hWnd)
+    //    dlg.SetParent(parent);
     dlg.setData(text, title);
-    dlg.createModal(initRect);
+    dlg.createModal(initRect, parent);
     return dlg.DoModal();
 }
 
@@ -161,18 +168,9 @@ int MsgBox::info(HWND parent, const CString &text, const CString &title)
 
 void MsgBox::info_time(const CString & text, int timeout, const CString &title)
 {
-    // 这里用new是因为 如果点击关闭太快导致对象析构
-    // 而这时候线程还未执行，可能导致空指针或者空句柄
-    // 从而引发错误
-    MsgBox *dlg = new MsgBox;
+    MsgBox *dlg = new MsgBox(true, timeout);
     dlg->setData(text, title);
     dlg->createModal(initRect);
-    std::thread{ [=]()
-    {
-        Sleep(timeout);
-        if(dlg && dlg->m_hWnd)
-            dlg->okBtnClicked(); 
-    } }.detach();
     dlg->DoModal();
     delete dlg;
     dlg = nullptr;
@@ -261,6 +259,11 @@ void MsgBox::initCtrl()
     okBtn_.setClickedEvent([&](bool) {OnOK(); });
     closeBtn_.setBitmap(closeID_);
     closeBtn_.setClickedEvent([&](bool) {OnCancel(); });
+
+    if (isTime_) 
+    {
+        SetTimer(TimeCloseEventID, time_, NULL);
+    }
 }
 void MsgBox::okBtnClicked()
 {
@@ -274,3 +277,17 @@ void MsgBox::okBtnClicked()
     }
 }
 } //!namespace GCtrl
+BEGIN_MESSAGE_MAP(GCtrl::MsgBox, Dialog)
+    ON_WM_TIMER()
+END_MESSAGE_MAP()
+
+
+void GCtrl::MsgBox::OnTimer(UINT_PTR nIDEvent)
+{
+    if (nIDEvent == TimeCloseEventID) 
+    {
+        OnOK();
+    }
+
+    Dialog::OnTimer(nIDEvent);
+}

@@ -64,6 +64,7 @@ class MsgBox : public Dialog
 {
 public:
     MsgBox();
+    MsgBox(bool isTime, int time = 2000);
 
 public:
     static void init(int bkbmp, int okbmp, int closebmp, const CRect &rect = initRect);
@@ -75,6 +76,10 @@ public:
     static void  info_time(const CString &text, int timeout = 2000, const CString &title = "提示");
 
     void okBtnClicked();
+private:
+    DECLARE_MESSAGE_MAP()
+    afx_msg void OnTimer(UINT_PTR nIDEvent);
+
 private:
     virtual BOOL OnInitDialog();
     void setData(const CString &text, const CString &title = "提示");
@@ -89,7 +94,13 @@ private:
     static int okID_;
     static int closeID_;
     static int bkID_;
+    static int TimeCloseEventID;
     static CRect initRect;
+
+    // 是否开启定时关闭
+    bool isTime_{ false };
+    int time_{ 2000 };
+private:
 
     PushButton okBtn_{ *this };
     PushButton closeBtn_{ *this };
@@ -109,6 +120,7 @@ private:
 
     CString title_;
     CString text_;
+
 };
 
 }

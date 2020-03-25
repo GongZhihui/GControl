@@ -16,14 +16,47 @@
 //==============================================================================
 
 #pragma once
-
-#include "gctrlhelper.h"
-#include "rect.h"
-#include "gstatic.h"
-#include "gbutton.h"
-#include "gcombobox.h"
-#include "ggroupbox.h"
-#include "glistbox.h"
+#include "stdafx.h"
 #include "gdialog.h"
-#include "gedit.h"
-#include "gprogressdialog.h"
+
+namespace GCtrl
+{
+
+// 一个带有进度条的对话框
+class ProgressDialog : Dialog
+{
+public:
+    ProgressDialog(CWnd &parent, const CString &tip, int bkBmpID, int closeBmpID);
+    
+    int show();
+    void close();
+private:
+    virtual BOOL OnInitDialog();
+    void createCtrl();
+    void initBK();
+    void initFont();
+    void initCtrl();
+    void setProgressData(int pos);
+    void updatePosThread();
+private:
+    //刷新进度条
+    LRESULT OnUpdateProgressMessage(WPARAM wParam, LPARAM lParam);
+    DECLARE_MESSAGE_MAP()
+private:
+    CString tip_;
+    CBitmap bkbmp_;
+    GCtrl::Static bkStc_{ *this };
+    GCtrl::Static tipStc_{ *this };
+    GCtrl::PushButton closeBtn_{ *this };
+    CProgressCtrl progress_;
+
+    CEvent execEvent_;
+    CEvent showEvent_;
+
+    CWnd * parent_{ nullptr };
+    int bkBmpID_;
+    int closeBmpID_;
+};
+
+
+}

@@ -195,6 +195,7 @@
     <ClInclude Include="GControl\basic.h" />
     <ClInclude Include="GControl\gbutton.h" />
     <ClInclude Include="GControl\gcontrol.h" />
+    <ClInclude Include="GControl\gprogressdialog.h" />
     <ClInclude Include="GControl\gstatic.h" />
     <ClInclude Include="GControl\gctrlhelper.h" />
     <ClInclude Include="GControl\gdialog.h" />
@@ -213,6 +214,7 @@
     <ClCompile Include="GControlDlg.cpp" />
     <ClCompile Include="GControl\basic.cpp" />
     <ClCompile Include="GControl\gbutton.cpp" />
+    <ClCompile Include="GControl\gprogressdialog.cpp" />
     <ClCompile Include="GControl\gstatic.cpp" />
     <ClCompile Include="GControl\gctrlhelper.cpp" />
     <ClCompile Include="GControl\gdialog.cpp" />
@@ -247,6 +249,7 @@
     <Image Include="res\msgbox\msg_bk.bmp" />
     <Image Include="res\msgbox\msg_close.bmp" />
     <Image Include="res\msgbox\msg_ok.bmp" />
+    <Image Include="res\tbbk.bmp" />
     <Image Include="res\tsyx.bmp" />
     <Image Include="res\tsyx.png" />
   </ItemGroup>

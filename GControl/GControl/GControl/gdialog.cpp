@@ -24,7 +24,8 @@ namespace GCtrl
 {
 
 CRect Dialog::BadRect = { -1, -1, -1, -1 };
-CRect Dialog::InitRect = { 0, 0, 100, 100};
+CRect Dialog::InitRect = { 0, 0, 100, 100 };
+
 
 BEGIN_MESSAGE_MAP(Dialog, CDialog)
     ON_WM_NCHITTEST()
@@ -154,11 +155,10 @@ void MsgBox::init(int bkbmp, int okbmp, int closebmp, const CRect &rect)
 int MsgBox::info(CWnd *parent, const CString &text, const CString &title)
 {
     MsgBox dlg;
-    //if(parent && parent->m_hWnd)
-    //    dlg.SetParent(parent);
     dlg.setData(text, title);
     dlg.createModal(initRect, parent);
-    return dlg.DoModal();
+    int ret = dlg.DoModal();
+    return ret ;
 }
 
 int MsgBox::info(HWND parent, const CString &text, const CString &title)

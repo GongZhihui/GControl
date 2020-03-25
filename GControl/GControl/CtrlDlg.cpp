@@ -7,6 +7,7 @@
 #include "afxdialogex.h"
 #include "resource.h"
 #include "GControl/gcontrol.h"
+#include <thread>
 
 // CCtrlDlg 对话框
 
@@ -152,12 +153,14 @@ void CCtrlDlg::initTreeCtrl()
 
 void CCtrlDlg::OnBnClickedButtonTest()
 {
-    CString log;
-    log.Format("%d %d %d %d -%d == %d %d %d", testRiobtn_.getCheck(), 
-        testRiobtn2_.getCheck(), testRiobtn3_.getCheck(),
-        testChkbox_.getCheck(), testCheckBox_.GetCheck() == BST_CHECKED,
-        cxyRiobtn_.GetCheck(), xmjlRiobtn_.GetCheck(), xsRiobtn_.GetCheck());
-    AfxMessageBox(log);
+    GCtrl::ProgressDialog dlg(*this, "处理中",
+        IDB_BITMAP_TB,
+        IDB_BITMAP_MSG_CLOSE);
+    std::thread([&]() {
+        Sleep(20000);
+        dlg.close();
+        }).detach();
+    dlg.show();
 }
 
 
@@ -196,7 +199,8 @@ LRESULT CCtrlDlg::OnNcHitTest(CPoint point)
 
 void CCtrlDlg::OnBnClickedButtonTsyx()
 {
-    // TODO: 在此添加控件通知处理程序代码
+    
+
 }
 
 

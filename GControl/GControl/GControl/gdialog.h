@@ -68,11 +68,15 @@ public:
 
 public:
     static void init(int bkbmp, int okbmp, int closebmp, const CRect &rect = initRect);
+    
+    static int info(bool isTop, CWnd *parent, const CString &text, const CString &title = "提示");
+    static int info(bool isTop, const CString &text, const CString &title = "提示");
     static int info(const CString &text, const CString &title = "提示");
     static int info(CWnd *parent, const CString &text, const CString &title = "提示");
     static int info(HWND parent, const CString &text, const CString &title = "提示");
     
     // 延迟timeout毫秒后自动关闭
+    static void  info_time(bool isTop, const CString &text, int timeout = 2000, const CString &title = "提示");
     static void  info_time(const CString &text, int timeout = 2000, const CString &title = "提示");
 
     void okBtnClicked();
@@ -82,7 +86,7 @@ private:
 
 private:
     virtual BOOL OnInitDialog();
-    void setData(const CString &text, const CString &title = "提示");
+    void setData(bool isTop, const CString &text, const CString &title = "提示");
     void setBmp(int bk, int close, int ok);
     void initFont();
     void initBK();
@@ -100,6 +104,7 @@ private:
     // 是否开启定时关闭
     bool isTime_{ false };
     int time_{ 2000 };
+    bool isTopmost_{ false };
 private:
 
     PushButton okBtn_{ *this };

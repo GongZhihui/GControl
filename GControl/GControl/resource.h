@@ -18,6 +18,7 @@
 #define IDB_PNG_TSYX                    144
 #define IDB_BITMAP3                     145
 #define IDB_BITMAP_TSYX                 145
+#define IDB_BITMAP_TB                   146
 #define IDC_COMBO_A                     1000
 #define IDC_EDIT_A                      1001
 #define IDC_LISTBOX_A                   1002
@@ -44,14 +45,15 @@
 #define IDC_BUTTON_TSYX                 1028
 #define IDC_TREE1                       1040
 #define IDC_TREE_TEST                   1040
+#define IDC_PROGRESS1                   1041
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        146
+#define _APS_NEXT_RESOURCE_VALUE        147
 #define _APS_NEXT_COMMAND_VALUE         32771
-#define _APS_NEXT_CONTROL_VALUE         1041
+#define _APS_NEXT_CONTROL_VALUE         1042
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif

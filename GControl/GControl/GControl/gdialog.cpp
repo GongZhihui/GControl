@@ -154,11 +154,21 @@ void MsgBox::init(int bkbmp, int okbmp, int closebmp, const CRect &rect)
 
 int MsgBox::info(CWnd *parent, const CString &text, const CString &title)
 {
+    return info(false, parent, text, title);
+}
+
+int MsgBox::info(bool isTop, CWnd *parent, const CString &text, const CString &title)
+{
     MsgBox dlg;
-    dlg.setData(text, title);
+    dlg.setData(isTop, text, title);
     dlg.createModal(initRect, parent);
     int ret = dlg.DoModal();
     return ret ;
+}
+
+int MsgBox::info(bool isTop, const CString & text, const CString & title)
+{
+    return info(isTop, nullptr, text, title);
 }
 
 int MsgBox::info(HWND parent, const CString &text, const CString &title)
@@ -166,23 +176,29 @@ int MsgBox::info(HWND parent, const CString &text, const CString &title)
     return info(CWnd::FromHandle(parent), text, title);
 }
 
-void MsgBox::info_time(const CString & text, int timeout, const CString &title)
+void MsgBox::info_time(bool isTop, const CString & text, int timeout, const CString &title)
 {
     MsgBox *dlg = new MsgBox(true, timeout);
-    dlg->setData(text, title);
+    dlg->setData(isTop, text, title);
     dlg->createModal(initRect);
     dlg->DoModal();
     delete dlg;
     dlg = nullptr;
 }
 
-int MsgBox::info(const CString &text, const CString &title)
+void MsgBox::info_time(const CString & text, int timeout, const CString & title)
 {
-    return info(CWnd{}, text, title);
+    info_time(false, text, timeout, title);
 }
 
-void MsgBox::setData(const CString &text, const CString &title)
+int MsgBox::info(const CString &text, const CString &title)
 {
+    return info(false, text, title);
+}
+
+void MsgBox::setData(bool isTop, const CString &text, const CString &title)
+{
+    isTopmost_ = isTop;
     title_ = title;
     text_ = text;
     auto size = text.GetLength();
@@ -212,6 +228,10 @@ BOOL MsgBox::OnInitDialog()
     initCtrl();
     initData();
 
+    if (isTopmost_) 
+    {
+        ::SetWindowPos(GetSafeHwnd(), HWND_TOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_HIDEWINDOW);
+    }
     return TRUE;
 }
 

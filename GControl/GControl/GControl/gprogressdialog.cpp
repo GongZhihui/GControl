@@ -47,8 +47,8 @@ ProgressDialog::ProgressDialog(CWnd & parent,
     , bkBmpID_(bkBmpID)
     , closeBmpID_(closeBmpID)
     , tip_(tip)
-    , execEvent_(false, false, "ExportExecSuccess", NULL)
-    , showEvent_(false, false, "ExportShowSuccess", NULL)
+    , execEvent_(false, false, "ExecSuccess", NULL)
+    , showEvent_(false, false, "ShowSuccess", NULL)
 {
 }
 
